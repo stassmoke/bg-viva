@@ -11,5 +11,23 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.options({
+    postCss: [
+        require('autoprefixer')({
+            overrideBrowserslist: ['last 10 versions'],
+            cascade: false,
+            grid: true,
+            flexbox: "no-2009",
+            supports: true
+        })
+    ]
+});
+
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+   .sass('resources/sass/app.scss', 'public/css')
+    .options({
+        processCssUrls: false
+    })
+;
+
+mix.browserSync(process.env.MIX_SENTRY_DSN_PUBLIC);
