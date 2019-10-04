@@ -2,9 +2,11 @@ require('./bootstrap');
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 
 import vuetify from './plugins/vuetify'
 
+Vue.use(Vuex);
 Vue.use(VueRouter);
 
 import App from './views/App'
