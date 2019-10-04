@@ -3,6 +3,8 @@ require('./bootstrap');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import vuetify from './plugins/vuetify'
+
 Vue.use(VueRouter);
 
 import App from './views/App'
@@ -26,7 +28,7 @@ const router = new VueRouter({
 });
 
 const app = new Vue({
-    el: '#app',
+    vuetify,
     components: { App },
     router,
-});
+}).$mount('#app');
