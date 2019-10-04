@@ -4,6 +4,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 
+
 import vuetify from './plugins/vuetify'
 
 Vue.use(Vuex);
@@ -12,6 +13,7 @@ Vue.use(VueRouter);
 import App from './views/App'
 import Hello from './views/Hello'
 import Home from './views/Home'
+
 
 const router = new VueRouter({
     mode: 'history',
@@ -34,3 +36,4 @@ const app = new Vue({
     components: { App },
     router,
 }).$mount('#app');
+failed

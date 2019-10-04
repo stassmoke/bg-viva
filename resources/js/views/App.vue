@@ -1,17 +1,30 @@
 <template>
-    <div>
-        <h1>Vue Router Demo App</h1>
+  <div>
 
-        <p>
-            <router-link :to="{ name: 'home' }">Home</router-link> |
-            <router-link :to="{ name: 'hello' }">Hello World</router-link>
-        </p>
+    <app-header></app-header>
+    <p>
+      <router-link :to="{ name: 'home' }">Home</router-link>|
+      <router-link :to="{ name: 'hello' }">Hello World</router-link>
+    </p>
 
-        <div class="container">
-            <router-view></router-view>
-        </div>
+    <div class="container">
+
+      <router-view></router-view>
+
     </div>
+  </div>
 </template>
+
+
+
 <script>
-    export default {}
+import AppHeader from '../../js/views/components/AppHeader'
+
+
+    export default {
+        components: {
+            AppHeader
+        }
+    };
+
 </script>
