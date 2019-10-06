@@ -13,6 +13,8 @@ Vue.use(VueRouter);
 import App from './views/App'
 import Hello from './views/Hello'
 import Home from './views/Home'
+import Login from './views/components/Auth/Login'
+
 
 
 const router = new VueRouter({
@@ -28,6 +30,11 @@ const router = new VueRouter({
             name: 'hello',
             component: Hello,
         },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login,
+        }
     ],
 });
 
@@ -36,4 +43,3 @@ const app = new Vue({
     components: { App },
     router,
 }).$mount('#app');
-failed

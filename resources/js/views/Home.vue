@@ -1,3 +1,9 @@
 <template>
-    <p>This is the homepage</p>
+    <div>
+        1 component
+    </div>
 </template>
+
+<script>
+    export default {}
+</script>

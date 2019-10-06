@@ -1,30 +1,38 @@
 <template>
   <div>
+    <v-app id="inspire">
+      <app-navigation ></app-navigation>
 
-    <app-header></app-header>
-    <p>
-      <router-link :to="{ name: 'home' }">Home</router-link>|
-      <router-link :to="{ name: 'hello' }">Hello World</router-link>
-    </p>
+      <app-header></app-header>
 
-    <div class="container">
-
-      <router-view></router-view>
-
-    </div>
+      <app-footer></app-footer>
+  
+      <v-content>
+        <v-container fluid class="fill-height">
+          <router-view></router-view>
+        </v-container>
+      </v-content>
+    
+     
+    </v-app>
   </div>
 </template>
 
 
 
 <script>
-import AppHeader from '../../js/views/components/AppHeader'
+
+import AppFooter from "./components/AppFooter";
+import AppHeader from "./components/AppHeader";
+import AppNavigation from "./components/AppNavigation";
 
 
-    export default {
-        components: {
-            AppHeader
-        }
-    };
 
+export default {
+  components: {
+    AppHeader,
+    AppFooter,
+    AppNavigation
+  }
+};
 </script>
