@@ -2,12 +2,9 @@ require('./bootstrap');
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Vuex from 'vuex'
-
-
 import vuetify from './plugins/vuetify'
+import store from './store.js'
 
-Vue.use(Vuex);
 Vue.use(VueRouter);
 
 import App from './views/App'
@@ -34,11 +31,17 @@ const router = new VueRouter({
             path: '/login',
             name: 'login',
             component: Login,
+        },
+        {
+            path: '/clients/create',
+            name: 'clients.create',
+            component: Hello,
         }
     ],
 });
 
 const app = new Vue({
+    store,
     vuetify,
     components: { App },
     router,

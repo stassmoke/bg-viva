@@ -1,13 +1,13 @@
 <template>
   <v-app-bar app color="indigo" dark>
-    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click.stop="toggleNav()"></v-app-bar-nav-icon>
     <v-toolbar-title>Viva-Capital Ba</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items>
-      <v-btn 
-        v-for="btn of buttons" 
+      <v-btn
+        v-for="btn of buttons"
+        @click="toPage(btn.route)"
         :key="btn.title"
-        :to="btn.route"
          text >
           <v-icon left>
             <!-- {{btn.icon}} -->
@@ -19,26 +19,36 @@
 </template>
 
 <script>
+    import { mapMutations } from 'vuex';
+
 export default {
   data: () => ({
     buttons: [
       {
         title: 'Вход',
         icon: 'lock',
-        route: 'Login'
+        route: 'clients.create'
         
       },
       {
         title: 'Выход',
         icon: 'lock',
-        route: 'Login'
+        route: 'login'
       },
       {
         title: 'Зарегистрировать',
         icon: 'lock',
-        route: 'Login',
+        route: 'login',
       }
     ]
-  })
+  }),
+    methods: {
+        ...mapMutations([
+            'toggleNav',
+        ]),
+        toPage(name) {
+            this.$router.push({ name: name });
+        }
+    },
 };
 </script>

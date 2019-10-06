@@ -1,6 +1,6 @@
 <template>
     <div>
-      <v-navigation-drawer app v-model="drawer">
+      <v-navigation-drawer app v-model="isShowNav">
         <v-list dense>
           <v-list-item 
             v-for="link of links"
@@ -19,9 +19,9 @@
 </template>
 
 <script>
+
     export default {
         data: () => ({
-            drawer: null,
             links: [
                 {
                     title: '1 component',
@@ -34,5 +34,13 @@
                 }
             ]
         }),
+        computed: {
+            isShowNav: {
+                get() {
+                    return this.$store.getters.isShowNav;
+                },
+                set() {}
+            }
+        }
     }
 </script>
