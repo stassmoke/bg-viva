@@ -14,6 +14,8 @@ import App from './views/App'
 import Hello from './views/Hello'
 import Home from './views/Home'
 import Login from './views/components/Auth/Login'
+import Registration from './views/components/Auth/Registration'
+
 
 
 
@@ -34,6 +36,11 @@ const router = new VueRouter({
             path: '/login',
             name: 'login',
             component: Login,
+        },
+        {
+            path: '/Registration',
+            name: 'register',
+            component: Registration,
         }
     ],
 });

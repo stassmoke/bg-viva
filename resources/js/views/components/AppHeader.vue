@@ -36,7 +36,7 @@ export default {
       {
         title: 'Зарегистрировать',
         icon: 'lock',
-        route: 'Login',
+        route: 'Registration',
       }
     ]
   })

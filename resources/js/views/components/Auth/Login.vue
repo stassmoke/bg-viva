@@ -3,7 +3,7 @@
     <v-col cols="12" sm="8" md="4">
       <v-card class="elevation-12">
         <v-toolbar color="indigo" dark flat>
-          <v-toolbar-title>Регистрация</v-toolbar-title>
+          <v-toolbar-title>Вход</v-toolbar-title>
           <div class="flex-grow-1"></div>
         </v-toolbar>
         <v-card-text>
@@ -30,7 +30,7 @@
         </v-card-text>
         <v-card-actions>
           <div class="flex-grow-1"></div>
-          <v-btn color="indigo" @click.prevent="register" dark>Зарегистрировать</v-btn>
+          <v-btn color="indigo" @click.prevent="login" dark>Войти</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -47,14 +47,11 @@ export default {
     };
   },
   methods: {
-    register: function() {
-      let data = {
-        email: this.email,
-        password: this.password,
-        is_admin: this.is_admin
-      };
+    login: function() {
+      let email = this.email;
+      let password = this.password;
       this.$store
-        .dispatch("register", data)
+        .dispatch("login", { email, password })
         .then(() => this.$router.push("/"))
         .catch(err => console.log(err));
     }
