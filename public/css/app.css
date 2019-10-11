@@ -1,0 +1,16 @@
+.v-navigation-drawer .v-list-item__title a {
+  width: 100%;
+  display: block;
+  padding: 8px 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 16px;
+  color: #424242;
+}
+.v-navigation-drawer .v-list-item__content {
+  padding: 0 !important;
+}
+
+.v-input--selection-controls {
+  margin-top: 0 !important;
+}

@@ -8,9 +8,17 @@
         </v-toolbar>
         <v-card-text>
           <v-form>
+						 <v-text-field
+              label="Имя"
+              name="name"
+              prepend-icon
+              type="name"
+              v-model="name"
+              required
+            ></v-text-field>
             <v-text-field
-              label="Ваша почта"
-              name="login"
+              label="Почта"
+              name="email"
               prepend-icon
               type="email"
               v-model="email"
@@ -26,6 +34,15 @@
               v-model="password"
               required
             ></v-text-field>
+            <v-text-field
+              id="confrim-password"
+              label="Подтвердите пароль"
+              name="password"
+              prepend-icon
+              type="password"
+              v-model="confrimPassword"
+              required
+            ></v-text-field>
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -38,15 +55,34 @@
 </template>
 
 <script>
+
+import {mapActions} from 'vuex';
+
 export default {
   data() {
     return {
+			name: null,
       email: null,
-      password: null
+      password: null,
+      confrimPassword: null
     };
   },
   methods: {
- 
+		...mapActions([
+			'regiterUsers'
+		]),
+		register() {
+      const user = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.confrimPassword
+			};
+			this.regiterUsers(user)
+			.then(resp => {
+				console.log(resp)
+			})
+    }
   }
 };
 </script>
