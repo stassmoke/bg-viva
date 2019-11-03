@@ -26,8 +26,12 @@ export default {
         url: "client",
       },
       {
-        title: "2 component",
-        url: "hello",
+        title: "Дзвінок",
+        url: "call",
+      },
+      {
+        title: "Зустріч",
+        url: "meeting",
       }
     ]
   }),

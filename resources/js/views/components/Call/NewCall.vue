@@ -24,9 +24,9 @@
 
 <script>
 
-import LegalEntity from '../Client/OwnershipClient/LegalEntity';
-import IndividualEntrepreneur from '../Client/OwnershipClient/IndividualEntrepreneur';
-import IndividualClient from '../Client/OwnershipClient/IndividualClient';
+import LegalEntity from '../Call/OwnershipCall/LegalEntity';
+import IndividualEntrepreneur from '../Call/OwnershipCall/IndividualEntrepreneur';
+import IndividualClient from '../Call/OwnershipCall/IndividualClient';
 
 
 

@@ -10,10 +10,13 @@ Vue.use(VueRouter);
 
 import App from './views/App'
 
-import Hello from './views/Hello'
 
 import Client from './views/components/Client/Client' 
 import NewClient from './views/components/Client/NewClient'
+
+import Call from './views/components/Call/Call'
+
+import Meeting from './views/components/Meeting/Meeting'
 
 
 import Login from './views/components/Auth/Login'
@@ -43,11 +46,15 @@ const router = new VueRouter({
             name: 'new-client',
             component: NewClient
         },
-
         {
-            path: '/hello',
-            name: 'hello',
-            component: Hello,
+            path: '/call',
+            name: 'call',
+            component: Call,
+        },
+        {
+            path: '/meeting',
+            name: 'meeting',
+            component: Meeting,
         },
         {
             path: '/login',

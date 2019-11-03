@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app id="inspire">
-      <app-navigation v></app-navigation>
+      <app-navigation></app-navigation>
 
       <app-header></app-header>
 
