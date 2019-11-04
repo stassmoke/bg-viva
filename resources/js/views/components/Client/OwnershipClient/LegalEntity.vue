@@ -2,7 +2,7 @@
   <div>
         <v-row justify="space-between">
           <v-col cols="12" sm="3" md="3">
-            <v-text-field label="Назва"></v-text-field>
+            <v-text-field v-model="legal.name" label="Назва"></v-text-field>
           </v-col>
           <v-col cols="12" sm="3" md="3">
             <v-text-field oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "6" label="Код ЄДРПОУ"></v-text-field>
@@ -359,6 +359,12 @@
 <script>
 
 export default {
+  props: {
+    legal: {
+      type: Object,
+      required: true,
+    }
+  },
     data() {
         return {
           radioGroup: 0,

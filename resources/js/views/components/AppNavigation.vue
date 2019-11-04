@@ -23,7 +23,7 @@ export default {
     links: [
       {
         title: "Клієнт",
-        url: "client",
+        url: "clients",
       },
       {
         title: "Дзвінок",
@@ -31,7 +31,7 @@ export default {
       },
       {
         title: "Зустріч",
-        url: "meeting",
+        url: "meetings",
       }
     ]
   }),

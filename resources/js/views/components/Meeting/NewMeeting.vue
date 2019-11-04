@@ -14,25 +14,23 @@
         </v-col>
       </v-row>
 
-      <LegalEntity :legal="legal" v-if="PersonChoice === 'legalEntity'"></LegalEntity>
+      <LegalEntity v-if="PersonChoice === 'legalEntity'"></LegalEntity>
       <IndividualEntrepreneur v-else-if="PersonChoice === 'IndividualEntrepreneur'"></IndividualEntrepreneur>
       <IndividualClient v-else></IndividualClient>
-    
-      <button @click="submitForm()">Submit</button>
     </v-container>
   </div>
 </template>
 
 <script>
 
-import LegalEntity from '../Client/OwnershipClient/LegalEntity';
-import IndividualEntrepreneur from '../Client/OwnershipClient/IndividualEntrepreneur';
-import IndividualClient from '../Client/OwnershipClient/IndividualClient';
+import LegalEntity from '../Meeting/OwnershipMeeting/LegalEntity'; 
+import IndividualEntrepreneur from '../Meeting/OwnershipMeeting/IndividualEntrepreneur';
+import IndividualClient from '../Meeting/OwnershipMeeting/IndividualClient';
 import { mapActions } from 'vuex';
 
 export default {
   components: {
-    LegalEntity,
+    LegalEntity, 
     IndividualClient,
     IndividualEntrepreneur
   },
@@ -47,21 +45,21 @@ export default {
       }
     };
   },
-  methods: {
-    ...mapActions(['addClient']),
-    submitForm() {
-      const client = {
-          name: this.legal.name,
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: "1%",
-          PersonChoice: this.PersonChoice,
-        };
+//   methods: {
+//     ...mapActions(['addClient']),
+//     submitForm() {
+//       const client = {
+//           name: this.legal.name,
+//           calories: 237,
+//           fat: 9.0,
+//           carbs: 37,
+//           protein: 4.3,
+//           iron: "1%",
+//           PersonChoice: this.PersonChoice,
+//         };
 
-      this.addClient(client);
-    }
-  }
+//       this.addClient(client);
+//     }
+//   }
 };
 </script>

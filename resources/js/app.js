@@ -13,10 +13,15 @@ import App from './views/App'
 
 import Client from './views/components/Client/Client' 
 import NewClient from './views/components/Client/NewClient'
+import TableClients from './views/components/Client/TableClients'
+
 
 import Call from './views/components/Call/Call'
 
-import Meeting from './views/components/Meeting/Meeting'
+import Meetings from './views/components/Meeting/Meeting'
+import NewMeeting from './views/components/Meeting/NewMeeting'
+import TableMeeting from './views/components/Meeting/TableMeeting'
+
 
 
 import Login from './views/components/Auth/Login'
@@ -37,14 +42,19 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
-            path: '/',
-            name: 'client',
-            component: Client
-        },
-        {
-            path: '/',
-            name: 'new-client',
-            component: NewClient
+            path: '/clients',
+            name: 'clients',
+            component: Client,
+            children: [
+                {
+                    path: '',
+                    component: TableClients,
+                },
+                {
+                    path: 'new',
+                    component: NewClient,
+                },
+            ]
         },
         {
             path: '/call',
@@ -52,9 +62,19 @@ const router = new VueRouter({
             component: Call,
         },
         {
-            path: '/meeting',
-            name: 'meeting',
-            component: Meeting,
+            path: '/meetings',
+            name: 'meetings',
+            component: Meetings,
+            children: [
+                {
+                    path: '',
+                    component: TableMeeting,
+                },
+                {
+                    path: 'new',
+                    component: NewMeeting,
+                },
+            ]
         },
         {
             path: '/login',
@@ -62,7 +82,7 @@ const router = new VueRouter({
             component: Login,
         },
         {
-            path: '/Registration',
+            path: '/registration',
             name: 'register',
             component: Registration,
         },

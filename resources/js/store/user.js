@@ -41,7 +41,6 @@ export default {
                         localStorage.setItem('token', token)
                         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
                         commit('updateUser', resp.data)
-                        console.log('login');
                         resolve(resp);
                     })
                     .catch(err => {
@@ -55,24 +54,16 @@ export default {
                 axios({ url: '/api/auth/user', method: 'GET' })
                     .then(resp => {
                         commit('updateUser', resp.data)
-                        console.log('getUser');
                         resolve(resp)
-                        
-
-                    })
-                    .catch(err => {
-                        reject(err)
                     })
             })
         },
         logout({ commit }) {
             return new Promise((resolve, reject) => {
                 commit('logout')
-                console.log('logout');
                 localStorage.removeItem('token')
                 delete axios.defaults.headers.common['Authorization']
-                resolve()
-                               
+                resolve();     
             })
         }
     },

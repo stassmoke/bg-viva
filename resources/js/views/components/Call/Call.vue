@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container>
-      <v-row justify="space-between">
+      <v-row class="justify-space-between align-center">
         <v-col cols="12" sm="8" md="8">
           <v-btn depressed color="primary" v-on:click="newCall = true">Дзвінок новому клієнту</v-btn>
           <v-btn depressed color="primary" v-on:click="newCall = false">Дзвінок Клієнту Існуючому</v-btn>
