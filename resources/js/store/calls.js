@@ -4,14 +4,13 @@ export default {
     state: {
         search: null,
 
-        clients: [
+        calls: [
             
         ],
-
     },
     mutations: {
-        addClient(state, client) {
-            state.clients.unshift(client);
+        addCalls(state, call) {
+            state.calls.unshift(call);
         },
 
         updateClientSearch(state, search) {
@@ -19,14 +18,14 @@ export default {
         },
     },
     actions: {
-        addClient({ commit }, payload) {
-            commit('addClient', payload);
-        },
 
+        addCalls({ commit }, payload) {
+            commit('addCalls', payload);
+        },
     },
     getters: {
-        clients: state => state.clients,
+        calls: state => state.calls,
 
-        clientSearch: state => state.search,
+        callSearch: state => state.search,
     }
 }

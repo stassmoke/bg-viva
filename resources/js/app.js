@@ -17,6 +17,8 @@ import TableClients from './views/components/Client/TableClients'
 
 
 import Call from './views/components/Call/Call'
+import NewCall from './views/components/Call/NewCall'
+import TableCall from './views/components/Call/TableCall'
 
 import Meetings from './views/components/Meeting/Meeting'
 import NewMeeting from './views/components/Meeting/NewMeeting'
@@ -60,6 +62,16 @@ const router = new VueRouter({
             path: '/call',
             name: 'call',
             component: Call,
+            children: [
+                {
+                    path: '',
+                    component: TableCall,
+                },
+                {
+                    path: 'new',
+                    component: NewCall,
+                },
+            ]
         },
         {
             path: '/meetings',
@@ -96,5 +108,4 @@ const app = new Vue({
     vuetify,
     components: { App },
     router,
-    // NewClient
 }).$mount('#app');

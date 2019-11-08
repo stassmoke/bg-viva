@@ -1,20 +1,20 @@
 <template>
   <div>
 
-    <v-row>
-      <v-col cols="12" sm="3" md="3">
-        <v-text-field label="ФІО"></v-text-field>
+    <v-row class="justify-center">
+      <v-col cols="12" sm="12" md="12">
+        <v-text-field class="input-centered" v-model="individualClient.name" label="ФІО"></v-text-field>
       </v-col>
-      <v-col cols="12" sm="3" md="3">
-        <v-text-field label="ІПН"></v-text-field>
+      <v-col cols="12" sm="12" md="12">
+        <v-text-field class="input-centered" v-model="individualClient.Ipn" label="ІПН"></v-text-field>
       </v-col>
-      <v-col cols="12" sm="3" md="3">
-        <v-text-field type="number" label="Мобільний номер телефону"></v-text-field>
+      <v-col cols="12" sm="12" md="12">
+        <v-text-field class="input-centered" v-model="individualClient.mobileNumber" type="number" label="Мобільний номер телефону"></v-text-field>
       </v-col>
-      <v-col cols="12" sm="3" md="3">
-        <v-text-field type="number" label="Альтернативний номер телефону(Домашній /Робочий)"></v-text-field>
+      <v-col cols="12" sm="12" md="12">
+        <v-text-field class="input-centered" v-model="individualClient.alternateNumber" type="number" label="Альтернативний номер телефону(Домашній /Робочий)"></v-text-field>
       </v-col>
-      <v-col cols="12" sm="3" md="3">
+      <v-col cols="12" sm="12" md="12" class="datepicker-centered">
         <v-menu
           ref="callFopDate"
           v-model="callFopDateMenu"
@@ -41,25 +41,21 @@
         </v-menu>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-textarea name="input-7-1" label="Коментар" auto-grow></v-textarea>
+        <v-textarea class="input-centered" v-model="individualClient.commet" name="input-7-1" label="Коментар" auto-grow></v-textarea>
       </v-col>
     </v-row>
 
-    <v-row justify="space-between">
-      <v-col cols="12" sm="2" md="2">
-        <v-btn depressed color="primary">Зберегти</v-btn>
-      </v-col>
-
-      <v-col cols="12" sm="2" md="2">
-        <v-btn depressed color="primary">Домовились про зустріч</v-btn>
-      </v-col>
-    </v-row>
-    
   </div>
 </template>
 
 <script>
 export default {
+    props: {
+      individualClient: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       callFopDate: new Date().toISOString().substr(0, 10),

@@ -14,17 +14,10 @@ export default {
     return {
         
       headers: [
-        {
-          text: "Dessert (100g serving)",
-          align: "left",
-          sortable: false,
-          value: "name"
-        },
-        { text: "Calories", value: "calories" },
-        { text: "Fat (g)", value: "fat" },
-        { text: "Carbs (g)", value: "carbs" },
-        { text: "Protein (g)", value: "protein" },
-        { text: "Iron (%)", value: "iron" }
+        { text: "Назва", align: "left", sortable: false,value: "name" },
+        { text: "Код", value: "code" },
+        { text: "Номер договору", value: "contractNumber" },
+        { text: "Номер відділення", value: "branchNumber" },
       ],
     };
   },
