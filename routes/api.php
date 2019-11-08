@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,11 +17,26 @@ Route::group([
 ], function () {
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
+});
+
+
+Route::group([
+    'middleware' => 'auth:api'
+], function() {
 
     Route::group([
-        'middleware' => 'auth:api'
-    ], function() {
+        'prefix' => 'auth'
+    ], function () {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
     });
+
+    Route::get('logout', 'AuthController@logout');
+    Route::get('user', 'AuthController@user');
+
+    Route::get('clients','ClientController@getList');
+    Route::post('clients','ClientController@store');
+    Route::get('clients/{id}','ClientController@find');
+    Route::put('clients/{id}','ClientController@update');
+    Route::delete('clients/{id}','ClientController@delete');
 });
