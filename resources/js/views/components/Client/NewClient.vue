@@ -113,7 +113,6 @@ export default {
         amountContract: null,
         interestRate: null,
         branchNumber: null
-
       },
       individualClient: {
         name: null,
@@ -140,7 +139,6 @@ export default {
         amountContract: null,
         interestRate: null,
         branchNumber: null
-
       }
     };
   },

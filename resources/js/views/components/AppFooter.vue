@@ -1,6 +1,6 @@
 <template>
   <div>
-     <v-footer color="indigo" app>
+     <v-footer color="primary" app>
         <span class="white--text">&copy; 2019</span>
       </v-footer>
   </div>

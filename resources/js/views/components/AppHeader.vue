@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color="indigo" dark>
+  <v-app-bar app color="primary" dark>
     <v-icon @click.stop="toggleNav()" left>menu</v-icon>
     <v-toolbar-title>Viva Capital BD</v-toolbar-title>
     <v-spacer></v-spacer>
