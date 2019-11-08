@@ -13,8 +13,17 @@ class MovablesRepository implements MovablesRepositoryInterface
     {
         $movables = new Movables();
 
-        $movables->description = $data['description'];
         $movables->individual_id = $data['individual_id'];
+
+        $this->update($data, $movables);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(array $data, Movables $movables): Movables
+    {
+        $movables->description = $data['description'];
 
         $movables->save();
 

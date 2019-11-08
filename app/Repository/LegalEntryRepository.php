@@ -14,27 +14,35 @@ class LegalEntryRepository implements LegalEntryRepositoryInterface
     {
         $legalEntry = new LegalEntry();
 
-        $legalEntry->name = $data['name'] ?? null;
-        $legalEntry->edrpou_code = $data['edrpou_code'] ?? null;
-        $legalEntry->legal_address = $data['legal_address'] ?? null;
-        $legalEntry->actual_address = $data['actual_address'] ?? null;
-        $legalEntry->contact_person = $data['contact_person'] ?? null;
-        $legalEntry->phone = $data['phone'] ?? null;
-        $legalEntry->activity = $data['activity'] ?? null;
-        $legalEntry->landline_phone = $data['landline_phone'] ?? null;
-        $legalEntry->net_profit_type = $data['net_profit_type'] ?? IncomingEnum::INCOMING_FIRST_TYPE;
-        $legalEntry->carrying_amount = $data['carrying_amount'] ?? null;
-        $legalEntry->carrying_date = $data['carrying_date'] ?? null;
-        $legalEntry->carrying_type = $data['carrying_type'] ?? IncomingEnum::INCOMING_FIRST_TYPE;
-        $legalEntry->payables = $data['payables'] ?? null;
-        $legalEntry->payables_date = $data['payables_date'] ?? null;
-        $legalEntry->payables_type = $data['payables_type'] ?? IncomingEnum::INCOMING_FIRST_TYPE;
-        $legalEntry->receivables = $data['receivables'] ?? null;
-        $legalEntry->receivables_date = $data['receivables_date'] ?? null;
-        $legalEntry->receivables_type = $data['receivables_type'] ??IncomingEnum::INCOMING_FIRST_TYPE;
+        return $this->update($data, $legalEntry);
+    }
 
-        $legalEntry->save();
+    /**
+     * @inheritdoc
+     */
+    public function update(array $data, LegalEntry $entry): LegalEntry
+    {
+        $entry->name = $data['name'] ?? null;
+        $entry->edrpou_code = $data['edrpou_code'] ?? null;
+        $entry->legal_address = $data['legal_address'] ?? null;
+        $entry->actual_address = $data['actual_address'] ?? null;
+        $entry->contact_person = $data['contact_person'] ?? null;
+        $entry->phone = $data['phone'] ?? null;
+        $entry->activity = $data['activity'] ?? null;
+        $entry->landline_phone = $data['landline_phone'] ?? null;
+        $entry->net_profit_type = $data['net_profit_type'] ?? IncomingEnum::INCOMING_FIRST_TYPE;
+        $entry->carrying_amount = $data['carrying_amount'] ?? null;
+        $entry->carrying_date = $data['carrying_date'] ?? null;
+        $entry->carrying_type = $data['carrying_type'] ?? IncomingEnum::INCOMING_FIRST_TYPE;
+        $entry->payables = $data['payables'] ?? null;
+        $entry->payables_date = $data['payables_date'] ?? null;
+        $entry->payables_type = $data['payables_type'] ?? IncomingEnum::INCOMING_FIRST_TYPE;
+        $entry->receivables = $data['receivables'] ?? null;
+        $entry->receivables_date = $data['receivables_date'] ?? null;
+        $entry->receivables_type = $data['receivables_type'] ??IncomingEnum::INCOMING_FIRST_TYPE;
 
-        return $legalEntry;
+        $entry->save();
+
+        return $entry;
     }
 }

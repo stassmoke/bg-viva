@@ -11,13 +11,22 @@ class RealEstateRepository implements RealEstateRepositoryInterface
      */
     public function create(array $data): RealEstate
     {
-        $realEstate = new RealEstate();
+        $estate = new RealEstate();
 
-        $realEstate->description = $data['description'];
-        $realEstate->individual_id = $data['individual_id'];
+        $estate->individual_id = $data['individual_id'];
 
-        $realEstate->save();
+        return $this->update($data, $estate);
+    }
 
-        return $realEstate;
+    /**
+     * @inheritdoc
+     */
+    public function update(array $data, RealEstate $estate): RealEstate
+    {
+        $estate->description = $data['description'];
+
+        $estate->save();
+
+        return $estate;
     }
 }

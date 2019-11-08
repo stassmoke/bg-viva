@@ -28,7 +28,7 @@ class ClientRepository implements ClientRepositoryInterface
                 'individual.guarantor',
                 'individual.realEstates',
                 'individual.movables',
-                'legalEntry',
+                'legalEntry.equipment',
                 'otherBankCredit',
             ])
             ->paginate($perPage, ['*'],'page', $page)
@@ -43,6 +43,15 @@ class ClientRepository implements ClientRepositoryInterface
         $client = new Client();
 
         $client->user_id = $data['user_id'];
+
+        return $this->update($data, $client);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(array $data, Client $client): Client
+    {
         $client->type = $data['type'];
         $client->legal_entity_id = $data['legal_entity_id'] ?? null;
         $client->individual_id = $data['individual_id'] ?? null;

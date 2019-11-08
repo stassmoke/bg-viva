@@ -12,15 +12,24 @@ class OtherBankCreditRepository implements OtherBankCreditRepositoryInterface
      */
     public function create(array $data): OtherBankCredit
     {
-        $otherBankCredit = new OtherBankCredit();
+        $bankCredit = new OtherBankCredit();
 
-        $otherBankCredit->name = $data['name'];
-        $otherBankCredit->sum = $data['sum'];
-        $otherBankCredit->date = $data['date'];
-        $otherBankCredit->client_id = $data['client_id'];
+        $bankCredit->client_id = $data['client_id'];
 
-        $otherBankCredit->save();
+        return $this->update($data, $bankCredit);
+    }
 
-        return $otherBankCredit;
+    /**
+     * @inheritdoc
+     */
+    public function update(array $data, OtherBankCredit $bankCredit): OtherBankCredit
+    {
+        $bankCredit->name = $data['name'];
+        $bankCredit->sum = $data['sum'];
+        $bankCredit->date = $data['date'];
+
+        $bankCredit->save();
+
+        return $bankCredit;
     }
 }

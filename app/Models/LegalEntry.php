@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * Class LegalEntry
@@ -26,9 +28,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property float receivables
  * @property string receivables_date
  * @property int receivables_type
+ * @property Equipment[]|Collection equipment
  */
 class LegalEntry extends Model
 {
     public const CREATED_AT = null;
     public const UPDATED_AT = null;
+
+    /**
+     * @return HasMany
+     */
+    public function equipment(): HasMany
+    {
+        return $this->hasMany(Equipment::class,'legal_entity_id','id');
+    }
 }

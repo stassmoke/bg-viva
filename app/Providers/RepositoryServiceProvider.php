@@ -47,5 +47,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repository\OtherBankCreditRepositoryInterface::class,
             \App\Repository\OtherBankCreditRepository::class
         );
+
+        $this->app->bind(
+            \App\Repository\EquipmentRepositoryInterface::class,
+            \App\Repository\EquipmentRepository::class
+        );
     }
 }

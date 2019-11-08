@@ -13,6 +13,14 @@ class IndividualRepository implements IndividualRepositoryInterface
     {
         $individual = new Individual();
 
+        return $this->update($data, $individual);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(array $data, Individual $individual): Individual
+    {
         $individual->fio = $data['fio'] ?? null;
         $individual->ipn = $data['ipn'] ?? null;
         $individual->registration_address = $data['registration_address'] ?? null;

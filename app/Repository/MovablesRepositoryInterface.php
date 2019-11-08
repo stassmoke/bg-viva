@@ -11,4 +11,11 @@ interface MovablesRepositoryInterface
      * @return Movables
      */
     public function create(array $data): Movables;
+
+    /**
+     * @param array $data
+     * @param Movables $movables
+     * @return Movables
+     */
+    public function update(array $data, Movables $movables): Movables;
 }

@@ -27,4 +27,11 @@ interface ClientRepositoryInterface
      * @return Client
      */
     public function create(array $data): Client;
+
+    /**
+     * @param array $data
+     * @param Client $client
+     * @return Client
+     */
+    public function update(array $data, Client $client): Client;
 }

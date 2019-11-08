@@ -13,6 +13,14 @@ class GuarantorRepository implements GuarantorRepositoryInterface
     {
         $guarantor = new Guarantor();
 
+        return $this->update($data, $guarantor);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(array $data, Guarantor $guarantor): Guarantor
+    {
         $guarantor->fio = $data['fio'] ?? null;
         $guarantor->ipn = $data['ipn'] ?? null;
         $guarantor->registration_address = $data['registration_address'] ?? null;
@@ -22,4 +30,5 @@ class GuarantorRepository implements GuarantorRepositoryInterface
 
         return $guarantor;
     }
+
 }
