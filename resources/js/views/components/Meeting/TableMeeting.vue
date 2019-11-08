@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="clients" :items-per-page="5" :search="clientSearch" class="elevation-1"></v-data-table>
+    <v-data-table :headers="headers" :items="meetings" :items-per-page="5" :search="meetingSearch" class="elevation-1"></v-data-table>
   </div>
 </template>
 <script>
@@ -14,22 +14,17 @@ export default {
     return {
         
       headers: [
-        {
-          text: "Dessert (100g serving)",
-          align: "left",
-          sortable: false,
-          value: "name"
-        },
-        { text: "Calories", value: "calories" },
-        { text: "Fat (g)", value: "fat" },
-        { text: "Carbs (g)", value: "carbs" },
-        { text: "Protein (g)", value: "protein" },
-        { text: "Iron (%)", value: "iron" }
+        { text: "Назва/ФІО", align: "left", sortable: false,value: "name" },
+        { text: "Код", value: "legalCode" },
+        { text: "Номер", value: "phoneNumber" },
+        { text: "Дата зустрічі", value: "contractNumber" },
+        { text: "Час зустрічі", value: "branchNumber" },
+        { text: "Домовились з клієнтом про", value: "whatAgees" },
       ],
     };
   },
   computed: {
-    ...mapGetters(['clients','clientSearch']),
+    ...mapGetters(['meetings','meetingSearch']),
   }
 };
 </script>

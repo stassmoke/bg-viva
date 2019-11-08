@@ -4,6 +4,8 @@ import Vuex from 'vuex'
 import userModule from './store/user'
 import clientsModule from './store/clients';
 import callsModule from './store/calls';
+import meetingsModule from './store/meetings';
+
 
 import commonModule from './store/common'
 
@@ -14,6 +16,8 @@ export default new Vuex.Store({
         commonModule,
         userModule,
         clientsModule,
-        callsModule
+        callsModule,
+        meetingsModule
+
     }
 }) 

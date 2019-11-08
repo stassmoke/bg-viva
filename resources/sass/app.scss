@@ -5,12 +5,9 @@
 }
 .input-centered {
     max-width: 33%!important;
-    margin: 0 auto;
+    margin: 0 auto!important;
 }
-.v-input--radio-group--column .v-input--radio-group__input {
-    flex-direction: row!important;
-    align-items: center!important;
-}
+
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -35,5 +32,4 @@ input[type=number]::-webkit-outer-spin-button {
 .datepicker-centered .v-input{
     max-width: 33%;
     margin: 0 auto;
-
 }

@@ -3,7 +3,7 @@
     <v-container>
       <v-row class="d-flex justify-space-between align-center">
         <v-col cols="12" sm="7" md="7">
-          <v-radio-group v-model="PersonChoice" row>
+          <v-radio-group v-model="personChoice" row>
             <v-radio label="Юридична особа" value="legalEntity"></v-radio>
             <v-radio label="Фізична особа підприємець" value="IndividualEntrepreneur"></v-radio>
             <v-radio label="Фізична особа" value="individual"></v-radio>
@@ -14,8 +14,8 @@
         </v-col>
       </v-row>
 
-      <LegalEntity :clientLegal="clientLegal" v-if="PersonChoice === 'legalEntity'"></LegalEntity>
-      <IndividualEntrepreneur :individualEntrepreneur="individualEntrepreneur" v-else-if="PersonChoice === 'IndividualEntrepreneur'"></IndividualEntrepreneur>
+      <LegalEntity :clientLegal="clientLegal" v-if="personChoice === 'legalEntity'"></LegalEntity>
+      <IndividualEntrepreneur :individualEntrepreneur="individualEntrepreneur" v-else-if="personChoice === 'IndividualEntrepreneur'"></IndividualEntrepreneur>
       <IndividualClient :individualClient="individualClient" v-else></IndividualClient>
     
       <v-row class="justify-space-between align-center">
@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      PersonChoice: 'legalEntity',
+      personChoice: 'legalEntity',
 
       branchNumber: null,
 
