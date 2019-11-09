@@ -37,14 +37,14 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({ url: '/api/auth/login', data: payload, method: 'POST' })
                     .then(resp => {
-                        const token = resp.data.access_token
-                        localStorage.setItem('token', token)
-                        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-                        commit('updateUser', resp.data)
+                        const token = resp.data.access_token;
+                        localStorage.setItem('token', token);
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                        commit('updateUser', resp.data);
                         resolve(resp);
                     })
                     .catch(err => {
-                        localStorage.removeItem('token')
+                        localStorage.removeItem('token');
                         reject(err);
                     })
             })
@@ -55,14 +55,15 @@ export default {
                     .then(resp => {
                         commit('updateUser', resp.data)
                         resolve(resp)
-                    })
-            })
+                    }).catch(err => reject(err))
+                ;
+            });
         },
         logout({ commit }) {
             return new Promise((resolve, reject) => {
-                commit('logout')
-                localStorage.removeItem('token')
-                delete axios.defaults.headers.common['Authorization']
+                commit('logout');
+                localStorage.removeItem('token');
+                delete axios.defaults.headers.common['Authorization'];
                 resolve();     
             })
         }
@@ -70,7 +71,7 @@ export default {
 
     getters: {
         user(state) {
-            return state.user
+            return state.user;
         },
         isAuthenticated(state) {
             return state.isAuthenticated           

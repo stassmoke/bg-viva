@@ -1,46 +1,58 @@
 <template>
-  <div>
-    <v-data-table
-      single-select="true"
-      :headers="headers"
-      :items="clients"
-      :items-per-page="5"
-      :search="clientSearch"
-      class="elevation-1"
-    >
-      <template slot="items" slot-scope="props">
-        <tr @click="showAlert(props.item)">
-          <td>{{ props.name }}</td>
-          <td>{{ props.item.code }}</td>
-          <td>{{ props.item.contractNumber }}</td>
-          <td>{{ props.item.branchNumber }}</td>
-        </tr>
-      </template>
-    </v-data-table>
-  </div>
+    <div>
+        <v-data-table
+            :headers="headers"
+            :items="clients"
+            :items-per-page="5"
+            :search="clientSearch"
+            class="elevation-1"
+        >
+            <template v-slot:body="{ items }">
+                <tbody>
+                <tr @click="edit(client)" v-for="client in items" :key="client.id">
+                    <td>{{ getClientName(client) }}</td>
+                    <td>{{ client.contract_number }}</td>
+                    <td>{{ client.branch_code }}</td>
+                </tr>
+                </tbody>
+            </template>
+        </v-data-table>
+    </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+    import { mapGetters } from "vuex";
 
-export default {
-  data() {
-    return {
-      headers: [
-        { text: "Назва", align: "left", sortable: false, value: "name" },
-        { text: "Код", value: "code" },
-        { text: "Номер договору", value: "contractNumber" },
-        { text: "Номер відділення", value: "branchNumber" }
-      ]
+    export default {
+        data() {
+            return {
+                headers: [
+                    {
+                        text: "Назва",
+                        align: "left",
+                        sortable: false,
+                        value: "name",
+                    },
+                    {
+                        text: "Номер договору",
+                        value: "contract_number",
+                    },
+                    {
+                        text: "Номер відділення",
+                        value: "branch_code",
+                    },
+                ],
+            };
+        },
+        computed: {
+            ...mapGetters(["clients", "clientSearch"]),
+        },
+        methods: {
+            edit(client) {
+                this.$router.push(`/clients/edit/${client.id}`);
+            },
+            getClientName(client) {
+                return client.type === 3 ? client.individual.fio : client.legal_entry.name;
+            },
+        },
     };
-  },
-  computed: {
-    ...mapGetters(["clients", "clientSearch"])
-  },
-  methods: {
-    showAlert(a) {
-      if (event.target.classList.contains("btn__content")) return;
-      alert("Alert! \n" + a.name);
-    }
-  }
-};
 </script>

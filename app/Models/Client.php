@@ -28,7 +28,7 @@ use Illuminate\Support\Collection;
  * @property Individual|null individual
  * @property LegalEntry|null legalEntry
  * @property User user
- * @property OtherBankCredit[]|Collection otherBankCredit
+ * @property OtherBankCredit[]|Collection otherBankCredits
  */
 class Client extends Model
 {
@@ -63,7 +63,7 @@ class Client extends Model
     /**
      * @return HasMany
      */
-    public function otherBankCredit(): HasMany
+    public function otherBankCredits(): HasMany
     {
         return $this->hasMany(OtherBankCredit::class,'client_id','id');
     }

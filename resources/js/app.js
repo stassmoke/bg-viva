@@ -10,9 +10,9 @@ Vue.use(VueRouter);
 
 import App from './views/App'
 
-
 import Client from './views/components/Client/Client' 
 import NewClient from './views/components/Client/NewClient'
+import EditClient from './views/components/Client/EditClient'
 import TableClients from './views/components/Client/TableClients'
 
 
@@ -25,19 +25,15 @@ import NewMeeting from './views/components/Meeting/NewMeeting'
 import TableMeeting from './views/components/Meeting/TableMeeting'
 
 
-
 import Login from './views/components/Auth/Login'
 import Registration from './views/components/Auth/Registration'
 
-
-const token = localStorage.getItem('token')
+const token = localStorage.getItem('token');
 
 Vue.prototype.$http = axios;
 
 if (token) {
-
     Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
 }
 
 const router = new VueRouter({
@@ -55,6 +51,10 @@ const router = new VueRouter({
                 {
                     path: 'new',
                     component: NewClient,
+                },
+                {
+                    path: 'edit/:id',
+                    component: EditClient,
                 },
             ]
         },
@@ -103,7 +103,7 @@ const router = new VueRouter({
     ],
 });
 
-const app = new Vue({
+new Vue({
     store,
     vuetify,
     components: { App },

@@ -71,6 +71,7 @@
                 individualEntrepreneurType: 2,
                 individualType: 3,
                 client: {
+                    id: null,
                     type: 1,
                     branch_code: 12312,
                     credit_meta: "Хочу купить ноут",
@@ -166,7 +167,11 @@
         methods: {
             ...mapActions(['addClient']),
             submitForm() {
-                this.addClient(this.client);
+                this.addClient(this.client)
+                    .then(() => {
+                        this.$router.push('/clients/');
+                    })
+                ;
             },
             addRealEstate() {
                 this.client.individual.real_estates.push({

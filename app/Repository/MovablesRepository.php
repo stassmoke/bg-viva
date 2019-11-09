@@ -15,7 +15,7 @@ class MovablesRepository implements MovablesRepositoryInterface
 
         $movables->individual_id = $data['individual_id'];
 
-        $this->update($data, $movables);
+        return $this->update($data, $movables);
     }
 
     /**

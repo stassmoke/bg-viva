@@ -135,7 +135,7 @@ class ClientController extends Controller
             'individual.realEstates',
             'individual.movables',
             'legalEntry.equipment',
-            'otherBankCredit',
+            'otherBankCredits',
         ]);
 
         return new JsonResponse([
@@ -454,7 +454,7 @@ class ClientController extends Controller
 
         $otherBankCredits = (array) Arr::get($clientFormData,'other_bank_credits', []);
 
-        $clientOtherBankCredits = $client->otherBankCredit->keyBy('id');
+        $clientOtherBankCredits = $client->otherBankCredits->keyBy('id');
 
         foreach ($otherBankCredits as $bankCredit) {
             $id = Arr::get($bankCredit, 'id');
