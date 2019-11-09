@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-if="isAuthenticated" app  v-model="isShowNav">
+    <v-navigation-drawer v-if="isAuthenticated" app v-model="isShowNav">
       <v-list dense nav>
         <v-list-item v-for="link of links" :key="link.title" link>
           <v-list-item-content>
@@ -27,7 +27,7 @@ export default {
       },
       {
         title: "Дзвінок",
-        url: "call",
+        url: "calls",
       },
       {
         title: "Зустріч",

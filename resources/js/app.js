@@ -1,111 +1,52 @@
-require('./bootstrap');
-
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import vuetify from './plugins/vuetify'
-import store from './store.js'
-import axios from 'axios'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import vuetify from './plugins/vuetify';
+import store from './store.js';
+import axios from 'axios';
 
 Vue.use(VueRouter);
 
-import App from './views/App'
-
-import Client from './views/components/Client/Client' 
-import NewClient from './views/components/Client/NewClient'
-import EditClient from './views/components/Client/EditClient'
-import TableClients from './views/components/Client/TableClients'
-
-
-import Call from './views/components/Call/Call'
-import NewCall from './views/components/Call/NewCall'
-import TableCall from './views/components/Call/TableCall'
-
-import Meetings from './views/components/Meeting/Meeting'
-import NewMeeting from './views/components/Meeting/NewMeeting'
-import TableMeeting from './views/components/Meeting/TableMeeting'
-
-
-import Login from './views/components/Auth/Login'
-import Registration from './views/components/Auth/Registration'
+Vue.prototype.$http = axios;
 
 const token = localStorage.getItem('token');
 
-Vue.prototype.$http = axios;
-
 if (token) {
-    Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    store.commit('updateUser', localStorage.getItem('user'));
 }
+
+Vue.prototype.$http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+import routes from './routes';
 
 const router = new VueRouter({
     mode: 'history',
-    routes: [
-        {
-            path: '/clients',
-            name: 'clients',
-            component: Client,
-            children: [
-                {
-                    path: '',
-                    component: TableClients,
-                },
-                {
-                    path: 'new',
-                    component: NewClient,
-                },
-                {
-                    path: 'edit/:id',
-                    component: EditClient,
-                },
-            ]
-        },
-        {
-            path: '/call',
-            name: 'call',
-            component: Call,
-            children: [
-                {
-                    path: '',
-                    component: TableCall,
-                },
-                {
-                    path: 'new',
-                    component: NewCall,
-                },
-            ]
-        },
-        {
-            path: '/meetings',
-            name: 'meetings',
-            component: Meetings,
-            children: [
-                {
-                    path: '',
-                    component: TableMeeting,
-                },
-                {
-                    path: 'new',
-                    component: NewMeeting,
-                },
-            ]
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: Login,
-        },
-        {
-            path: '/registration',
-            name: 'register',
-            component: Registration,
-        },
-        
-
-    ],
+    routes: routes,
 });
+
+router.beforeEach((to, from, next) => {
+    store.commit('closeNav');
+
+    if (to.meta.auth && !store.getters.isAuthenticated) {
+        next({ name: 'login' });
+        return;
+    }
+
+    if (!to.meta.auth && store.getters.isAuthenticated) {
+        next({ name: 'clients' });
+        return;
+    }
+
+    next();
+});
+
+import App from './views/App'
 
 new Vue({
     store,
     vuetify,
-    components: { App },
+    components: {
+        App
+    },
     router,
 }).$mount('#app');

@@ -3,78 +3,78 @@ import axios from 'axios';
 export default {
     state: {
         isAuthenticated: false,
-        user: {
-
-        }
+        user: {}
     },
     mutations: {
         updateUser(state, user) {
-            state.user = user
+            state.user = user;
+            localStorage.setItem('user', state.user);
+
             if (user) {
-                state.isAuthenticated = true
+                state.isAuthenticated = true;
             }
         },
-        logout(state, user) {
-            state.user = user
-            if (!user) {
-                state.isAuthenticated = false
-            }
+        logout(state) {
+            state.user = null;
+            state.isAuthenticated = false;
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            delete axios.defaults.headers.common['Authorization'];
         }
     },
     actions: {
-        regiterUsers({ commit }, payload) {
+        registerUser({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios({ url: '/api/auth/signup', data: payload, method: 'POST' })
+                axios.post('/api/auth/signup', payload)
                     .then(resp => {
                         resolve(resp)
                     })
                     .catch(err => {
                         reject(err)
                     })
-            })
+                ;
+            });
         },
         loginUser({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios({ url: '/api/auth/login', data: payload, method: 'POST' })
+                axios.post('/api/auth/login', payload)
                     .then(resp => {
                         const token = resp.data.access_token;
                         localStorage.setItem('token', token);
                         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                        commit('updateUser', resp.data);
-                        resolve(resp);
+                        resolve(resp.data);
                     })
                     .catch(err => {
                         localStorage.removeItem('token');
                         reject(err);
                     })
-            })
+                ;
+            });
         },
         getUser({ commit }) {
             return new Promise((resolve, reject) => {
-                axios({ url: '/api/auth/user', method: 'GET' })
+                axios.get('/api/auth/user')
                     .then(resp => {
-                        commit('updateUser', resp.data)
-                        resolve(resp)
+                        commit('updateUser', resp.data);
+                        resolve(resp.data);
                     }).catch(err => reject(err))
                 ;
             });
         },
         logout({ commit }) {
             return new Promise((resolve, reject) => {
-                commit('logout');
-                localStorage.removeItem('token');
-                delete axios.defaults.headers.common['Authorization'];
-                resolve();     
-            })
+                axios.get('/api/auth/logout')
+                    .then(response => {
+                        commit('logout');
+                        resolve(response.data);
+                    }).catch(err => reject(err))
+                ;
+            });
         }
     },
 
     getters: {
-        user(state) {
-            return state.user;
-        },
-        isAuthenticated(state) {
-            return state.isAuthenticated           
-        }
+        user: state => state.user,
+        isAuthenticated: state => state.isAuthenticated,
     }
 }

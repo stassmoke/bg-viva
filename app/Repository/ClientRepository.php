@@ -29,7 +29,7 @@ class ClientRepository implements ClientRepositoryInterface
                 'individual.realEstates',
                 'individual.movables',
                 'legalEntry.equipment',
-                'otherBankCredit',
+                'otherBankCredits',
             ])
             ->paginate($perPage, ['*'],'page', $page)
         ;

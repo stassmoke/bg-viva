@@ -20,7 +20,7 @@
     </div>
 </template>
 <script>
-    import { mapGetters } from "vuex";
+    import { mapGetters, mapActions } from "vuex";
 
     export default {
         data() {
@@ -44,9 +44,15 @@
             };
         },
         computed: {
-            ...mapGetters(["clients", "clientSearch"]),
+            ...mapGetters(['clients', 'clientSearch','isLoadedClients']),
+        },
+        mounted() {
+            if (this.isLoadedClients === false) {
+                this.getClients();
+            }
         },
         methods: {
+            ...mapActions(['getClients']),
             edit(client) {
                 this.$router.push(`/clients/edit/${client.id}`);
             },

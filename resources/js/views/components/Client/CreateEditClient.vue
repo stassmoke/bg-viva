@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-container v-if="this.isLoaded">
+        <v-container>
             <v-row class="d-flex justify-space-between align-center">
                 <v-col cols="12" sm="7" md="7">
                     <v-radio-group v-model.number="client.type" class="d-flex align-center no-mess" row>
@@ -53,13 +53,13 @@
 </template>
 
 <script>
-
     import LegalEntity from '../Client/OwnershipClient/LegalEntity';
     import IndividualClient from '../Client/OwnershipClient/IndividualClient';
     import Contract from './OwnershipClient/Сontract';
     import { mapActions } from 'vuex';
 
     export default {
+        name: "CreateEditClient",
         components: {
             LegalEntity,
             IndividualClient,
@@ -70,25 +70,89 @@
                 legalType: 1,
                 individualEntrepreneurType: 2,
                 individualType: 3,
-                client: {},
-                isLoaded: false,
+                client: {
+                    id: null,
+                    type: 1,
+                    branch_code: null,
+                    credit_meta: null,
+                    is_contract_concluded: false,
+                    contract_number: null,
+                    contract_date: null,
+                    contract_sum: null,
+                    contract_percent: null,
+                    individual: {
+                        fio: null,
+                        ipn: null,
+                        registration_address: null,
+                        residence_address: null,
+                        contact_phone: null,
+                        work_place: null,
+                        work_place_phone: null,
+                        average_monthly_income: null,
+                        another_income: null,
+                        is_married: false,
+                        dependents_count: 0,
+                        is_have_guarantor: true,
+                        guarantor: {
+                            fio: null,
+                            ipn: null,
+                            registration_address: null,
+                        },
+                        real_estates: [],
+                        movables: []
+                    },
+                    legal_entry: {
+                        id: null,
+                        name: null,
+                        edrpou_code: null,
+                        legal_address: null,
+                        actual_address: null,
+                        contact_person: null,
+                        position: null,
+                        phone: null,
+                        landline_phone: null,
+                        activity: null,
+                        net_profit_type: null,
+                        carrying_amount: null,
+                        carrying_date: null,
+                        carrying_type: 1,
+                        payables: null,
+                        payables_date: null,
+                        payables_type: 1,
+                        receivables: null,
+                        receivables_date: null,
+                        receivables_type: 1,
+                        equipment: [],
+                    },
+                    other_bank_credits: [],
+                }
             };
         },
         mounted() {
             const clientID = this.$route.params.id;
-            this.findClient(clientID).then(client => {
-                this.client = client;
-                this.isLoaded = true;
-            });
+
+            if (clientID) {
+                this.findClient(clientID).then(client => {
+                    this.client = client;
+                });
+            }
         },
         methods: {
-            ...mapActions(['findClient']),
+            ...mapActions(['findClient','updateClient','addClient']),
             submitForm() {
-                this.addClient(this.client)
-                    .then(() => {
-                        this.$router.push('/clients/');
-                    })
-                ;
+                if (this.client.id === null) {
+                    this.addClient(this.client)
+                        .then(() => {
+                            this.$router.push('/clients/');
+                        })
+                    ;
+                } else {
+                    this.updateClient(this.client)
+                        .then(() => {
+                            this.$router.push('/clients/');
+                        })
+                    ;
+                }
             },
             addRealEstate() {
                 this.client.individual.real_estates.push({
@@ -128,6 +192,6 @@
             removeMovables(index) {
                 this.client.individual.movables.splice(index, 1);
             },
-        }
+        },
     };
 </script>

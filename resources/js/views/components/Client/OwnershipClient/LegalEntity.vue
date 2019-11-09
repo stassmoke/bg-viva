@@ -212,14 +212,8 @@
                     </v-date-picker>
                 </v-menu>
             </v-col>
-            <v-col cols="12" sm="12" md="12">
-                <v-radio-group v-model="legal.carrying_type" row>
-                    <v-radio class="mx-2" value="1" label="< 0,5млн - 2,5 млн. грн."></v-radio>
-                    <v-radio class="mx-2" value="2" label="2,5-10 млн. грн."></v-radio>
-                    <v-radio class="mx-2" value="3" label="10 млн. грн."></v-radio>
-                </v-radio-group>
 
-            </v-col>
+            <IncomingType @updateValue="updateIncomingValue" name="carrying_type"></IncomingType>
         </v-row>
 
         <v-row justify="flex-start">
@@ -257,13 +251,8 @@
                     </v-date-picker>
                 </v-menu>
             </v-col>
-            <v-col cols="12" sm="12" md="12">
-                <v-radio-group v-model="legal.payables_type" row>
-                    <v-radio class="mx-2" value="1" label="< 0,5млн - 2,5 млн. грн."></v-radio>
-                    <v-radio class="mx-2" value="2" label="2,5-10 млн. грн."></v-radio>
-                    <v-radio class="mx-2" value="3" label="10 млн. грн."></v-radio>
-                </v-radio-group>
-            </v-col>
+
+            <IncomingType @updateValue="updateIncomingValue" name="payables_type"></IncomingType>
         </v-row>
 
         <v-row justify="flex-start">
@@ -301,14 +290,8 @@
                     </v-date-picker>
                 </v-menu>
             </v-col>
-            <v-col cols="12" sm="12" md="12">
-                <v-radio-group v-model="legal.receivables_type" row>
-                    <v-radio class="mx-2" value="1" label="< 0,5млн - 2,5 млн. грн."></v-radio>
-                    <v-radio class="mx-2" value="2" label="2,5-10 млн. грн."></v-radio>
-                    <v-radio class="mx-2" value="3" label="10 млн. грн."></v-radio>
-                </v-radio-group>
 
-            </v-col>
+            <IncomingType @updateValue="updateIncomingValue" name="receivables_type"></IncomingType>
         </v-row>
 
     </div>
@@ -316,10 +299,12 @@
 
 <script>
     import Credits from "./Credits";
+    import IncomingType from "./IncomingType";
 
     export default {
         components: {
             Credits,
+            IncomingType,
         },
         props: {
             legal: {
@@ -338,5 +323,10 @@
                 clientBalanceDateMenu: false,
             }
         },
+        methods: {
+            updateIncomingValue(data) {
+                this.legal[data.name] = data.value;
+            }
+        }
     };
 </script>
