@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\DTO\FilterDTO;
+use App\DTO\SortByDTO;
 use App\Models\Client;
 use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 
 class ClientRepository implements ClientRepositoryInterface
 {
@@ -20,9 +23,10 @@ class ClientRepository implements ClientRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function findByUserAndPaginate(User $user, int $page, int $perPage = 20): LengthAwarePaginator
+    public function findByUserAndPaginate(User $user, FilterDTO $filterDTO, SortByDTO $sortByDTO): LengthAwarePaginator
     {
-        return Client::query()
+        $clientQuery = Client::query()
+            ->select(['clients.*'])
             ->where('user_id', '=', $user->id)
             ->with([
                 'individual.guarantor',
@@ -31,7 +35,34 @@ class ClientRepository implements ClientRepositoryInterface
                 'legalEntry.equipment',
                 'otherBankCredits',
             ])
-            ->paginate($perPage, ['*'],'page', $page)
+            ->leftJoin('individuals as i','i.id','=','clients.individual_id')
+            ->leftJoin('legal_entries as l','l.id','=','clients.legal_entity_id')
+        ;
+
+        if ($sortByDTO->getOrderBy() === 'code') {
+            $clientQuery->orderByRaw('IF(clients.type = 3, i.ipn, l.edrpou_code) ' . $sortByDTO->getDirection());
+        } else if ($sortByDTO->getOrderBy() === 'name') {
+            $clientQuery->orderByRaw('IF(clients.type = 3, i.fio, l.name) ' . $sortByDTO->getDirection());
+        } else {
+            $clientQuery->orderBy($sortByDTO->getOrderBy(), $sortByDTO->getDirection());
+        }
+
+        if ($filterDTO->getTerm() !== null) {
+            $term = $filterDTO->getTerm();
+
+            $clientQuery
+                ->where(function (Builder $builder) use ($term) {
+                    return $builder
+                        ->where('i.fio','LIKE','%' . $term .'%')
+                        ->orWhere('l.name','LIKE','%' . $term .'%')
+                        ->orWhere('l.edrpou_code','LIKE','%' . $term .'%')
+                    ;
+                })
+            ;
+        }
+
+        return $clientQuery
+            ->paginate($filterDTO->getPerPage(), ['*'],'page', $filterDTO->getPage())
         ;
     }
 

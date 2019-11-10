@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\DTO\FilterDTO;
+use App\DTO\SortByDTO;
 use App\Models\Client;
 use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -16,11 +18,11 @@ interface ClientRepositoryInterface
 
     /**
      * @param User $user
-     * @param int $page
-     * @param int $perPage
+     * @param FilterDTO $filterDTO
+     * @param SortByDTO $sortByDTO
      * @return LengthAwarePaginator|\Illuminate\Pagination\LengthAwarePaginator
      */
-    public function findByUserAndPaginate(User $user, int $page, int $perPage = 20): LengthAwarePaginator;
+    public function findByUserAndPaginate(User $user, FilterDTO $filterDTO, SortByDTO $sortByDTO): LengthAwarePaginator;
 
     /**
      * @param array $data

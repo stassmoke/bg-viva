@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\FilterDTO;
+use App\DTO\SortByDTO;
 use App\Repository\ClientRepositoryInterface;
 use App\Repository\EquipmentRepositoryInterface;
 use App\Repository\GuarantorRepositoryInterface;
@@ -100,8 +102,18 @@ class ClientController extends Controller
         $user = $request->user();
 
         $page = $request->query->getInt('page',1);
+        $perPage = $request->query->getInt('perPage',15);
+        $orderBy = $request->query->get('orderBy','clients.id');
+        $sortDirection = $request->query->get('sortDirection','desc');
+        $term = $request->query->get('term');
 
-        $clients = $this->clientRepository->findByUserAndPaginate($user, $page);
+        $filterDTO = new FilterDTO($page, $perPage);
+
+        $filterDTO->setTerm($term);
+
+        $sortByDTO = new SortByDTO($orderBy, $sortDirection);
+
+        $clients = $this->clientRepository->findByUserAndPaginate($user, $filterDTO, $sortByDTO);
 
         return new JsonResponse($clients->toArray());
     }

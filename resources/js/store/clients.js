@@ -4,6 +4,11 @@ export default {
     state: {
         search: null,
         isLoaded: false,
+        perPage: 15,
+        page: 1,
+        total: 0,
+        sortBy: 'clients.contract_date',
+        sortDirection: 'DESC',
         clients: [],
     },
     mutations: {
@@ -22,9 +27,25 @@ export default {
         updateClientSearch(state, search) {
           state.search = search;
         },
-        setClients(state, clients) {
-            state.clients = clients;
+        setClients(state, pagination) {
+            state.clients = pagination.data;
+            state.total = pagination.total;
             state.isLoaded = true;
+        },
+        updateClientsPerPage(state, perPage) {
+            state.perPage = perPage;
+        },
+        updateClientsPage(state, page) {
+            state.page = page;
+        },
+        updateClientLoaded(state, status) {
+            state.isLoaded = status;
+        },
+        updateClientsSort(state, sortBy) {
+            state.sortBy = sortBy;
+        },
+        updateClientsSortDirection(state, direction) {
+            state.sortDirection = direction;
         },
     },
     actions: {
@@ -58,11 +79,21 @@ export default {
                 ;
             });
         },
-        getClients({ commit }) {
+        getClients({ commit, getters }) {
+            commit('updateClientLoaded', false);
+
             return new Promise((resolve, reject) => {
-                axios.get(`/api/clients`)
+                const params = {
+                    page: getters.clientsPage,
+                    perPage: getters.clientsPerPage,
+                    term: getters.clientSearch,
+                    orderBy: getters.clientsSortBy,
+                    sortDirection: getters.clientsSortDirection,
+                };
+
+                axios.get(`/api/clients`, { params: params })
                     .then(response => {
-                        commit('setClients', response.data.data);
+                        commit('setClients', response.data);
                         resolve(response.data.data);
                     }).catch(err => reject(err))
                 ;
@@ -73,5 +104,10 @@ export default {
         clients: state => state.clients,
         clientSearch: state => state.search,
         isLoadedClients: state => state.isLoaded,
+        clientsPerPage: state => state.perPage,
+        clientsPage: state => state.page,
+        clientsTotal: state => state.total,
+        clientsSortBy: state => state.sortBy,
+        clientsSortDirection: state => state.sortDirection,
     }
 }
