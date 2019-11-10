@@ -19,7 +19,7 @@ use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class ClientController extends Controller
+class ClientController
 {
     /**
      * @var ClientRepositoryInterface

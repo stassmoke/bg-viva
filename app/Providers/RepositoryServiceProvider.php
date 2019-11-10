@@ -57,5 +57,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repository\LegalEntryActivityRepositoryInterface::class,
             \App\Repository\LegalEntryActivityRepository::class
         );
+
+        $this->app->bind(
+            \App\Repository\CallRepositoryInterface::class,
+            \App\Repository\CallRepository::class
+        );
     }
 }

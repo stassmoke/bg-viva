@@ -39,4 +39,6 @@ Route::group([
     Route::get('clients/{id}','ClientController@find');
     Route::put('clients/{id}','ClientController@update');
     Route::delete('clients/{id}','ClientController@delete');
+
+    Route::get('calls/{id}','CallController@find');
 });
