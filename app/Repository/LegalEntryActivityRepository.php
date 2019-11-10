@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Models\LegalEntry;
 use App\Models\LegalEntryActivity;
 
 class LegalEntryActivityRepository implements LegalEntryActivityRepositoryInterface
@@ -28,5 +29,17 @@ class LegalEntryActivityRepository implements LegalEntryActivityRepositoryInterf
         $legalEntryActivity->save();
 
         return $legalEntryActivity;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function removeWhereNotIdByLegalEntry(iterable $ids, LegalEntry $legalEntry): void
+    {
+        LegalEntryActivity::query()
+            ->where('legal_entity_id','=', $legalEntry->id)
+            ->whereNotIn('id', $ids)
+            ->delete()
+        ;
     }
 }

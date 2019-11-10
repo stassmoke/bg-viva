@@ -393,40 +393,52 @@ class ClientController extends Controller
 
             $individualEstates = $individual->realEstates->keyBy('id');
 
+            $realEstatesIds = [];
+
             foreach ($realEstatesData as $estatesDatum) {
                 $id = Arr::get($estatesDatum,'id');
 
                 if ($individualEstates->has($id)) {
-                    $this->realEstateRepository->update([
+                    $estate = $this->realEstateRepository->update([
                         'description' => $estatesDatum['description'],
                     ], $individualEstates->get($id));
                 } else {
-                    $this->realEstateRepository->create([
+                    $estate = $this->realEstateRepository->create([
                         'description' => $estatesDatum['description'],
                         'individual_id' => $individual->id,
                     ]);
                 }
+
+                $realEstatesIds[] = $estate->id;
             }
+
+            $this->realEstateRepository->removeWhereNotIdByIndividual($realEstatesIds, $individual);
 
             $movablesData = (array) Arr::get($individualFormData,'movables', []);
 
             $individualMovables = $individual->movables->keyBy('id');
 
+            $movablesIds = [];
+
             foreach ($movablesData as $movablesDatum) {
                 $id = Arr::get($movablesDatum,'id');
 
                 if ($individualMovables->has($id)) {
-                    $this->movablesRepository->update([
+                    $movable = $this->movablesRepository->update([
                         'description' => $movablesDatum['description'],
                         'individual_id' => $individual->id,
                     ], $individualMovables->get($id));
                 } else {
-                    $this->movablesRepository->create([
+                    $movable = $this->movablesRepository->create([
                         'description' => $movablesDatum['description'],
                         'individual_id' => $individual->id,
                     ]);
                 }
+
+                $movablesIds[] = $movable->id;
             }
+
+            $this->movablesRepository->removeWhereNotIdByIndividual($movablesIds, $individual);
         }
 
         $legalEntryFromData = Arr::get($clientFormData,'legal_entry');
@@ -465,39 +477,51 @@ class ClientController extends Controller
 
             $legalEntryEquipment = $legalEntry->equipment->keyBy('id');
 
+            $equipmentIds = [];
+
             foreach ($equipmentData as $equipmentDatum) {
                 $id = Arr::get($equipmentDatum, 'id');
 
                 if ($legalEntryEquipment->has($id)) {
-                    $this->equipmentRepository->update([
+                    $equipment = $this->equipmentRepository->update([
                         'description' => $equipmentDatum['description'],
                     ], $legalEntryEquipment->get($id));
                 } else {
-                    $this->equipmentRepository->create([
+                    $equipment = $this->equipmentRepository->create([
                         'legal_entity_id' => $legalEntry->id,
                         'description' => $equipmentDatum['description'],
                     ]);
                 }
+
+                $equipmentIds[] = $equipment->id;
             }
+
+            $this->equipmentRepository->removeWhereNotIdByLegalEntry($equipmentIds, $legalEntry);
 
             $activitiesData = (array) Arr::get($legalEntryFromData,'activities', []);
 
             $legalEntryActivities = $legalEntry->activities->keyBy('id');
 
+            $legalEntryActivityIds = [];
+
             foreach ($activitiesData as $activitiesDatum) {
                 $id = Arr::get($activitiesDatum, 'id');
 
                 if ($legalEntryActivities->has($id)) {
-                    $this->legalEntryActivityRepository->update([
+                    $legalEntryActivity = $this->legalEntryActivityRepository->update([
                         'description' => $activitiesDatum['description'],
                     ], $legalEntryActivities->get($id));
                 } else {
-                    $this->legalEntryActivityRepository->create([
+                    $legalEntryActivity = $this->legalEntryActivityRepository->create([
                         'legal_entity_id' => $legalEntry->id,
                         'description' => $activitiesDatum['description'],
                     ]);
                 }
+
+                $legalEntryActivityIds[] = $legalEntryActivity->id;
             }
+
+            $this->legalEntryActivityRepository->removeWhereNotIdByLegalEntry($legalEntryActivityIds, $legalEntry);
         }
 
         $client = $this->clientRepository->update($clientData, $client);
@@ -506,24 +530,30 @@ class ClientController extends Controller
 
         $clientOtherBankCredits = $client->otherBankCredits->keyBy('id');
 
+        $otherBankCreditsIds = [];
+
         foreach ($otherBankCredits as $bankCredit) {
             $id = Arr::get($bankCredit, 'id');
 
             if ($clientOtherBankCredits->has($id)) {
-                $this->otherBankCreditRepository->update([
+                $otherBankCredit = $this->otherBankCreditRepository->update([
                     'name' => Arr::get($bankCredit,'name'),
                     'sum' => Arr::get($bankCredit,'sum'),
                     'date' => Arr::get($bankCredit,'date'),
                 ], $clientOtherBankCredits->get($id));
             } else {
-                $this->otherBankCreditRepository->create([
+                $otherBankCredit = $this->otherBankCreditRepository->create([
                     'name' => Arr::get($bankCredit,'name'),
                     'sum' => Arr::get($bankCredit,'sum'),
                     'date' => Arr::get($bankCredit,'date'),
                     'client_id' => $client->id,
                 ]);
             }
+
+            $otherBankCreditsIds[] = $otherBankCredit->id;
         }
+
+        $this->otherBankCreditRepository->removeWhereNotIdByClient($otherBankCreditsIds, $client);
 
         return new JsonResponse($client);
     }

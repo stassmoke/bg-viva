@@ -6,16 +6,14 @@ import axios from 'axios';
 
 Vue.use(VueRouter);
 
-Vue.prototype.$http = axios;
-
 const token = localStorage.getItem('token');
 
 if (token) {
-    Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.commit('updateUser', localStorage.getItem('user'));
 }
 
-Vue.prototype.$http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 import routes from './routes';
 
@@ -39,6 +37,22 @@ router.beforeEach((to, from, next) => {
 
     next();
 });
+
+axios.interceptors.response.use(
+    response => {
+        return response;
+    },
+    error => {
+        if (error.response.status === 401) {
+            store.commit('logout');
+            router.push({ name: 'login' });
+        }
+
+        return Promise.reject(error.response);
+    }
+);
+
+Vue.prototype.$http = axios;
 
 import App from './views/App'
 

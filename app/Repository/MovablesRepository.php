@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Models\Individual;
 use App\Models\Movables;
 
 class MovablesRepository implements MovablesRepositoryInterface
@@ -28,5 +29,17 @@ class MovablesRepository implements MovablesRepositoryInterface
         $movables->save();
 
         return $movables;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function removeWhereNotIdByIndividual(iterable $ids, Individual $individual): void
+    {
+        Movables::query()
+            ->where('individual_id','=', $individual)
+            ->whereNotIn('id', $ids)
+            ->delete()
+        ;
     }
 }

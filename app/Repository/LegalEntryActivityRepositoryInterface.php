@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Models\LegalEntry;
 use App\Models\LegalEntryActivity;
 
 interface LegalEntryActivityRepositoryInterface
@@ -18,4 +19,10 @@ interface LegalEntryActivityRepositoryInterface
      * @return LegalEntryActivity
      */
     public function update(array $data, LegalEntryActivity $legalEntryActivity): LegalEntryActivity;
+
+    /**
+     * @param iterable $ids
+     * @param LegalEntry $legalEntry
+     */
+    public function removeWhereNotIdByLegalEntry(iterable $ids, LegalEntry $legalEntry): void;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Models\Client;
 use App\Models\OtherBankCredit;
 
 interface OtherBankCreditRepositoryInterface
@@ -18,4 +19,10 @@ interface OtherBankCreditRepositoryInterface
      * @return OtherBankCredit
      */
     public function update(array $data, OtherBankCredit $bankCredit): OtherBankCredit;
+
+    /**
+     * @param iterable $ids
+     * @param Client $client
+     */
+    public function removeWhereNotIdByClient(iterable $ids, Client $client): void;
 }

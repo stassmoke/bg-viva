@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Models\Individual;
 use App\Models\RealEstate;
 
 class RealEstateRepository implements RealEstateRepositoryInterface
@@ -28,5 +29,17 @@ class RealEstateRepository implements RealEstateRepositoryInterface
         $estate->save();
 
         return $estate;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function removeWhereNotIdByIndividual(iterable $ids, Individual $individual): void
+    {
+        RealEstate::query()
+            ->where('individual_id','=', $individual->id)
+            ->whereNotIn('id', $ids)
+            ->delete()
+        ;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Models\Individual;
 use App\Models\RealEstate;
 
 interface RealEstateRepositoryInterface
@@ -18,4 +19,10 @@ interface RealEstateRepositoryInterface
      * @return RealEstate
      */
     public function update(array $data, RealEstate $estate): RealEstate;
+
+    /**
+     * @param iterable $ids
+     * @param Individual $individual
+     */
+    public function removeWhereNotIdByIndividual(iterable $ids, Individual $individual): void;
 }

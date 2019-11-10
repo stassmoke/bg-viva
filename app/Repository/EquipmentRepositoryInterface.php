@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\Equipment;
+use App\Models\LegalEntry;
 
 interface EquipmentRepositoryInterface
 {
@@ -18,4 +19,10 @@ interface EquipmentRepositoryInterface
      * @return Equipment
      */
     public function update(array $data, Equipment $equipment): Equipment;
+
+    /**
+     * @param iterable $ids
+     * @param LegalEntry $legalEntry
+     */
+    public function removeWhereNotIdByLegalEntry(iterable $ids, LegalEntry $legalEntry): void;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Models\Client;
 use App\Models\OtherBankCredit;
 
 class OtherBankCreditRepository implements OtherBankCreditRepositoryInterface
@@ -31,5 +32,17 @@ class OtherBankCreditRepository implements OtherBankCreditRepositoryInterface
         $bankCredit->save();
 
         return $bankCredit;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function removeWhereNotIdByClient(iterable $ids, Client $client): void
+    {
+        OtherBankCredit::query()
+            ->where('client_id','=', $client->id)
+            ->whereNotIn('id', $ids)
+            ->delete()
+        ;
     }
 }

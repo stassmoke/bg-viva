@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\Equipment;
+use App\Models\LegalEntry;
 
 class EquipmentRepository implements EquipmentRepositoryInterface
 {
@@ -28,5 +29,17 @@ class EquipmentRepository implements EquipmentRepositoryInterface
         $equipment->save();
 
         return $equipment;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function removeWhereNotIdByLegalEntry(iterable $ids, LegalEntry $legalEntry): void
+    {
+        Equipment::query()
+            ->where('legal_entity_id','=', $legalEntry->id)
+            ->whereNotIn('id', $ids)
+            ->delete()
+        ;
     }
 }
