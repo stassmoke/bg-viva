@@ -136,11 +136,7 @@
                     суб’єктів господарювання) та запланований дохід за рік</h3>
             </v-col>
             <v-col cols="12" sm="6" md="6">
-                <v-radio-group v-model="legal.net_profit_type" row>
-                    <v-radio class="mx-2" value="1" label="< 0,5млн - 2,5 млн. грн."></v-radio>
-                    <v-radio class="mx-2" value="2" label="2,5-10 млн. грн."></v-radio>
-                    <v-radio class="mx-2" value="3" label="10 млн. грн."></v-radio>
-                </v-radio-group>
+                <IncomingType :value.sync="legal.net_profit_type" name="net_profit_type"></IncomingType>
             </v-col>
 
             <v-col cols="12" sm="12" md="12">
@@ -221,7 +217,7 @@
                 </v-menu>
             </v-col>
 
-            <IncomingType @updateValue="updateIncomingValue" name="carrying_type"></IncomingType>
+            <IncomingType :value.sync="legal.carrying_type" name="carrying_type"></IncomingType>
         </v-row>
 
         <v-row justify="flex-start">
@@ -260,7 +256,7 @@
                 </v-menu>
             </v-col>
 
-            <IncomingType @updateValue="updateIncomingValue" name="payables_type"></IncomingType>
+            <IncomingType :value.sync="legal.payables_type" name="payables_type"></IncomingType>
         </v-row>
 
         <v-row justify="flex-start">
@@ -299,7 +295,7 @@
                 </v-menu>
             </v-col>
 
-            <IncomingType @updateValue="updateIncomingValue" name="receivables_type"></IncomingType>
+            <IncomingType :value.sync="legal.receivables_type" name="receivables_type"></IncomingType>
         </v-row>
 
     </div>
@@ -331,10 +327,5 @@
                 clientBalanceDateMenu: false,
             }
         },
-        methods: {
-            updateIncomingValue(data) {
-                this.legal[data.name] = data.value;
-            }
-        }
     };
 </script>
