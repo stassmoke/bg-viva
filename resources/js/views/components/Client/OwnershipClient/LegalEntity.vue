@@ -111,12 +111,20 @@
         <v-row justify="space-between">
             <v-col cols="12" sm="12" md="12" class="d-flex align-center">
                 <h3 class="font-weight-medium">Вид (види) господарської (економічної) діяльності клієнта</h3>
-                <v-btn class="mx-2" fab small dark color="primary">
+                <v-btn @click="$emit('addActivity')" class="mx-2" fab small dark color="primary">
                     <v-icon dark>mdi-plus</v-icon>
                 </v-btn>
             </v-col>
-            <v-col cols="12" sm="4" md="4">
-                <v-text-field v-model="legal.activity" label="Вид діяльності"></v-text-field>
+        </v-row>
+
+        <v-row justify="space-between" v-for="(activity,index) in legal.activities" :key="activity.id">
+            <v-col cols="10" sm="4" md="4">
+                <v-text-field v-model="activity.description" label="Вид діяльності"></v-text-field>
+            </v-col>
+            <v-col cols="2">
+                <v-btn @click="$emit('removeActivity',index)" class="mx-2" fab small dark color="primary">
+                    <v-icon dark>mdi-minus</v-icon>
+                </v-btn>
             </v-col>
         </v-row>
 

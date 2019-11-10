@@ -8,6 +8,7 @@ use App\Repository\ClientRepositoryInterface;
 use App\Repository\EquipmentRepositoryInterface;
 use App\Repository\GuarantorRepositoryInterface;
 use App\Repository\IndividualRepositoryInterface;
+use App\Repository\LegalEntryActivityRepositoryInterface;
 use App\Repository\LegalEntryRepositoryInterface;
 use App\Repository\MovablesRepositoryInterface;
 use App\Repository\OtherBankCreditRepositoryInterface;
@@ -61,6 +62,11 @@ class ClientController extends Controller
     private $equipmentRepository;
 
     /**
+     * @var LegalEntryActivityRepositoryInterface
+     */
+    private $legalEntryActivityRepository;
+
+    /**
      * ClientController constructor.
      * @param ClientRepositoryInterface $clientRepository
      * @param GuarantorRepositoryInterface $guarantorRepository
@@ -70,6 +76,7 @@ class ClientController extends Controller
      * @param OtherBankCreditRepositoryInterface $otherBankCreditRepository
      * @param RealEstateRepositoryInterface $realEstateRepository
      * @param EquipmentRepositoryInterface $equipmentRepository
+     * @param LegalEntryActivityRepositoryInterface $legalEntryActivityRepository
      */
     public function __construct(
         ClientRepositoryInterface $clientRepository,
@@ -79,7 +86,8 @@ class ClientController extends Controller
         MovablesRepositoryInterface $movablesRepository,
         OtherBankCreditRepositoryInterface $otherBankCreditRepository,
         RealEstateRepositoryInterface $realEstateRepository,
-        EquipmentRepositoryInterface $equipmentRepository
+        EquipmentRepositoryInterface $equipmentRepository,
+        LegalEntryActivityRepositoryInterface $legalEntryActivityRepository
     )
     {
         $this->clientRepository = $clientRepository;
@@ -90,6 +98,7 @@ class ClientController extends Controller
         $this->otherBankCreditRepository = $otherBankCreditRepository;
         $this->realEstateRepository = $realEstateRepository;
         $this->equipmentRepository = $equipmentRepository;
+        $this->legalEntryActivityRepository = $legalEntryActivityRepository;
     }
 
     /**
@@ -147,6 +156,7 @@ class ClientController extends Controller
             'individual.realEstates',
             'individual.movables',
             'legalEntry.equipment',
+            'legalEntry.activities',
             'otherBankCredits',
         ]);
 
@@ -265,6 +275,15 @@ class ClientController extends Controller
                 $this->equipmentRepository->create([
                     'legal_entity_id' => $legalEntry->id,
                     'description' => $equipmentDatum['description'],
+                ]);
+            }
+
+            $activitiesData = (array) Arr::get($legalEntryFromData,'activities', []);
+
+            foreach ($activitiesData as $activitiesDatum) {
+                $this->legalEntryActivityRepository->create([
+                    'legal_entity_id' => $legalEntry->id,
+                    'description' => $activitiesDatum['description'],
                 ]);
             }
         }
@@ -457,6 +476,25 @@ class ClientController extends Controller
                     $this->equipmentRepository->create([
                         'legal_entity_id' => $legalEntry->id,
                         'description' => $equipmentDatum['description'],
+                    ]);
+                }
+            }
+
+            $activitiesData = (array) Arr::get($legalEntryFromData,'activities', []);
+
+            $legalEntryActivities = $legalEntry->activities->keyBy('id');
+
+            foreach ($activitiesData as $activitiesDatum) {
+                $id = Arr::get($activitiesDatum, 'id');
+
+                if ($legalEntryActivities->has($id)) {
+                    $this->legalEntryActivityRepository->update([
+                        'description' => $activitiesDatum['description'],
+                    ], $legalEntryActivities->get($id));
+                } else {
+                    $this->legalEntryActivityRepository->create([
+                        'legal_entity_id' => $legalEntry->id,
+                        'description' => $activitiesDatum['description'],
                     ]);
                 }
             }

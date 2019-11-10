@@ -52,5 +52,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repository\EquipmentRepositoryInterface::class,
             \App\Repository\EquipmentRepository::class
         );
+
+        $this->app->bind(
+            \App\Repository\LegalEntryActivityRepositoryInterface::class,
+            \App\Repository\LegalEntryActivityRepository::class
+        );
     }
 }

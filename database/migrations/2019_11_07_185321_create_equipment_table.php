@@ -17,6 +17,8 @@ class CreateEquipmentTable extends Migration
             $table->bigIncrements('id');
             $table->integer('legal_entity_id')->unsigned();
             $table->mediumText('description');
+
+            $table->index('legal_entity_id');
         });
     }
 

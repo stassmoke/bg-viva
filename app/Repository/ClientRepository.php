@@ -33,6 +33,7 @@ class ClientRepository implements ClientRepositoryInterface
                 'individual.realEstates',
                 'individual.movables',
                 'legalEntry.equipment',
+                'legalEntry.activities',
                 'otherBankCredits',
             ])
             ->leftJoin('individuals as i','i.id','=','clients.individual_id')
@@ -62,7 +63,7 @@ class ClientRepository implements ClientRepositoryInterface
         }
 
         return $clientQuery
-            ->paginate($filterDTO->getPerPage(), ['*'],'page', $filterDTO->getPage())
+            ->paginate($filterDTO->getPerPage(), ['*'], 'page', $filterDTO->getPage())
         ;
     }
 

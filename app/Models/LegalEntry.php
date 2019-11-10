@@ -29,6 +29,7 @@ use Illuminate\Support\Collection;
  * @property string receivables_date
  * @property int receivables_type
  * @property Equipment[]|Collection equipment
+ * @property LegalEntryActivity[]|Collection activities
  */
 class LegalEntry extends Model
 {
@@ -41,5 +42,13 @@ class LegalEntry extends Model
     public function equipment(): HasMany
     {
         return $this->hasMany(Equipment::class,'legal_entity_id','id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function activities(): HasMany
+    {
+        return $this->hasMany(LegalEntryActivity::class,'legal_entity_id','id');
     }
 }

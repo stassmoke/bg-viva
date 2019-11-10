@@ -25,6 +25,8 @@
                 @removeOtherCredit="removeOtherCredit"
                 @addEquipment="addEquipment"
                 @removeEquipment="removeEquipment"
+                @addActivity="addActivity"
+                @removeActivity="removeActivity"
                 :legal="client.legal_entry"
                 v-if="client.type === 1 || client.type === 2"
             ></LegalEntity>
@@ -123,6 +125,7 @@
                         receivables_date: null,
                         receivables_type: 1,
                         equipment: [],
+                        activities: [],
                     },
                     other_bank_credits: [],
                 }
@@ -180,11 +183,20 @@
                     description: null,
                 });
             },
+            addActivity() {
+                this.client.legal_entry.activities.push({
+                    id: null,
+                    description: null,
+                });
+            },
             removeOtherCredit(index) {
                 this.client.other_bank_credits.splice(index, 1);
             },
             removeEquipment(index) {
                 this.client.legal_entry.equipment.splice(index, 1);
+            },
+            removeActivity(index) {
+                this.client.legal_entry.activities.splice(index, 1);
             },
             removeRealEstate(index) {
                 this.client.individual.real_estates.splice(index, 1);
