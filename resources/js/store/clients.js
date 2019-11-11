@@ -4,7 +4,7 @@ export default {
     state: {
         search: null,
         isLoaded: false,
-        perPage: 15,
+        perPage: 20,
         page: 1,
         total: 0,
         sortBy: 'clients.contract_date',

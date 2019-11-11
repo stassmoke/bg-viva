@@ -18,7 +18,7 @@ use Illuminate\Support\Collection;
  * @property int individual_id
  * @property string branch_code
  * @property string credit_meta
- * @property int is_contract_concluded
+ * @property boolean is_contract_concluded
  * @property int contract_number
  * @property string contract_date
  * @property int contract_sum
@@ -32,6 +32,10 @@ use Illuminate\Support\Collection;
  */
 class Client extends Model
 {
+    protected $casts = [
+        'is_contract_concluded' => 'boolean',
+    ];
+
     public const LEGAL_ENTRY_TYPE = 1;
     public const INDIVIDUAL_ENTREPRENEUR_TYPE = 2;
     public const INDIVIDUAL_TYPE = 3;

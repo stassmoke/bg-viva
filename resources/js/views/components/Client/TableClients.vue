@@ -9,6 +9,9 @@
             :server-items-length="clientsTotal"
             class="elevation-1"
             :loading="!this.isLoadedClients"
+            :footer-props="{
+                'items-per-page-options': rowsPerPageItems
+            }"
             loading-text="Loading... Please wait"
             @update:items-per-page="updatePerPage"
             @update:page="updatePage"
@@ -38,6 +41,7 @@
     export default {
         data() {
             return {
+                rowsPerPageItems: [10, 20, 30, 40, 50],
                 headers: [
                     {
                         text: "Назва",

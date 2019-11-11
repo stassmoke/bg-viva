@@ -28,6 +28,10 @@
         @removeEquipment="removeEquipment"
         @addActivity="addActivity"
         @removeActivity="removeActivity"
+        @addPerson="addPerson"
+        @removePerson="removePerson"
+        @addIndividualPerson="addIndividualPerson"
+        @removeIndividualPerson="removeIndividualPerson"
         :legal="client.legal_entry"
         v-if="client.type === 1 || client.type === 2"
       ></LegalEntity>
@@ -129,7 +133,9 @@ export default {
           receivables_date: null,
           receivables_type: 1,
           equipment: [],
-          activities: []
+          activities: [],
+          individual_persons: [],
+          persons: [],
         },
         other_bank_credits: []
       }
@@ -183,6 +189,18 @@ export default {
         description: null
       });
     },
+    addPerson() {
+      this.client.legal_entry.persons.push({
+          id: null,
+          description: null
+      });
+    },
+    addIndividualPerson() {
+      this.client.legal_entry.individual_persons.push({
+          id: null,
+          description: null
+      });
+    },
     addActivity() {
       this.client.legal_entry.activities.push({
         id: null,
@@ -197,6 +215,12 @@ export default {
     },
     removeActivity(index) {
       this.client.legal_entry.activities.splice(index, 1);
+    },
+    removePerson(index) {
+      this.client.legal_entry.persons.splice(index, 1);
+    },
+    removeIndividualPerson(index) {
+        this.client.legal_entry.individual_persons.splice(index, 1);
     },
     removeRealEstate(index) {
       this.client.individual.real_estates.splice(index, 1);

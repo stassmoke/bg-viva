@@ -8,8 +8,6 @@
                 <v-text-field
                     class="input-centered"
                     v-model="legal.edrpou_code"
-                    oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                    maxlength="6"
                     label="Код ЄДРПОУ"
                 ></v-text-field>
             </v-col>
@@ -67,7 +65,7 @@
             </v-col>
             <v-col cols="12" sm="12" md="12" class="d-flex align-center">
                 <h3 class="font-weight-medium">Фізичні особи-учасники</h3>
-                <v-btn class="mx-2" fab small dark color="primary">
+                <v-btn @click="$emit('addIndividualPerson')" class="mx-2" fab small dark color="primary">
                     <v-icon dark>mdi-plus</v-icon>
                 </v-btn>
             </v-col>
@@ -80,16 +78,21 @@
             </v-col>
         </v-row>
         <div></div>
-        <v-row>
-            <v-col cols="12" sm="4" md="4">
-                <v-text-field v-model="legal.individualsParticipating" label="Фізичні особи-учасники"></v-text-field>
+        <v-row v-for="(individualPerson,index) in legal.individual_persons" :key="`ip_${individualPerson.id}`">
+            <v-col cols="10" sm="4" md="4">
+                <v-text-field v-model="individualPerson.description" label="Фізичні особи-учасники"></v-text-field>
+            </v-col>
+            <v-col cols="2">
+                <v-btn @click="$emit('removeIndividualPerson',index)" class="mx-2" fab small dark color="primary">
+                    <v-icon dark>mdi-minus</v-icon>
+                </v-btn>
             </v-col>
         </v-row>
 
         <v-row justify="space-between">
             <v-col cols="12" sm="12" md="12" class="d-flex align-center">
                 <h3 class="font-weight-medium">Юридичні особи-учасники</h3>
-                <v-btn class="mx-2" fab small dark color="primary">
+                <v-btn @click="$emit('addPerson')" class="mx-2" fab small dark color="primary">
                     <v-icon dark>mdi-plus</v-icon>
                 </v-btn>
             </v-col>
@@ -102,9 +105,14 @@
             </v-col>
         </v-row>
 
-        <v-row justify="space-between">
-            <v-col cols="12" sm="4" md="4">
-                <v-text-field v-model="legal.legalParticipating" label="Юридичні особи-учасники"></v-text-field>
+        <v-row justify="space-between"  v-for="(person,index) in legal.persons" :key="`p_${person.id}`">
+            <v-col cols="10" sm="4" md="4">
+                <v-text-field v-model="person.description" label="Юридичні особи-учасники"></v-text-field>
+            </v-col>
+            <v-col cols="2">
+                <v-btn @click="$emit('removePerson',index)" class="mx-2" fab small dark color="primary">
+                    <v-icon dark>mdi-minus</v-icon>
+                </v-btn>
             </v-col>
         </v-row>
 
@@ -117,7 +125,7 @@
             </v-col>
         </v-row>
 
-        <v-row justify="space-between" v-for="(activity,index) in legal.activities" :key="activity.id">
+        <v-row justify="space-between" v-for="(activity,index) in legal.activities" :key="`a_${activity.id}`">
             <v-col cols="10" sm="4" md="4">
                 <v-text-field v-model="activity.description" label="Вид діяльності"></v-text-field>
             </v-col>
@@ -136,7 +144,13 @@
                     суб’єктів господарювання) та запланований дохід за рік</h3>
             </v-col>
             <v-col cols="12" sm="6" md="6">
-                <IncomingType :value.sync="legal.net_profit_type" name="net_profit_type"></IncomingType>
+                <v-col cols="12" sm="12" md="12">
+                    <v-radio-group v-model="legal.net_profit_type" row>
+                        <v-radio class="mx-2" :value="incoming_types.first" label="< 0,5млн - 2,5 млн. грн."></v-radio>
+                        <v-radio class="mx-2" :value="incoming_types.second" label="2,5-10 млн. грн."></v-radio>
+                        <v-radio class="mx-2" :value="incoming_types.third" label="10 млн. грн."></v-radio>
+                    </v-radio-group>
+                </v-col>
             </v-col>
 
             <v-col cols="12" sm="12" md="12">
@@ -166,7 +180,7 @@
             </v-col>
         </v-row>
 
-        <v-row justify="space-between" v-for="(equipment,index) in legal.equipment" :key="equipment.id">
+        <v-row justify="space-between" v-for="(equipment,index) in legal.equipment" :key="`e_${equipment.id}`">
             <v-col cols="10" sm="4" md="4">
                 <v-text-field
                     v-model="equipment.description"
@@ -217,7 +231,13 @@
                 </v-menu>
             </v-col>
 
-            <IncomingType :value.sync="legal.carrying_type" name="carrying_type"></IncomingType>
+            <v-col cols="12" sm="12" md="12">
+                <v-radio-group v-model="legal.carrying_type" row>
+                    <v-radio class="mx-2" :value="incoming_types.first" label="< 0,5млн - 2,5 млн. грн."></v-radio>
+                    <v-radio class="mx-2" :value="incoming_types.second" label="2,5-10 млн. грн."></v-radio>
+                    <v-radio class="mx-2" :value="incoming_types.third" label="10 млн. грн."></v-radio>
+                </v-radio-group>
+            </v-col>
         </v-row>
 
         <v-row justify="flex-start">
@@ -256,7 +276,13 @@
                 </v-menu>
             </v-col>
 
-            <IncomingType :value.sync="legal.payables_type" name="payables_type"></IncomingType>
+            <v-col cols="12" sm="12" md="12">
+                <v-radio-group v-model="legal.payables_type" row>
+                    <v-radio class="mx-2" :value="incoming_types.first" label="< 0,5млн - 2,5 млн. грн."></v-radio>
+                    <v-radio class="mx-2" :value="incoming_types.second" label="2,5-10 млн. грн."></v-radio>
+                    <v-radio class="mx-2" :value="incoming_types.third" label="10 млн. грн."></v-radio>
+                </v-radio-group>
+            </v-col>
         </v-row>
 
         <v-row justify="flex-start">
@@ -295,7 +321,13 @@
                 </v-menu>
             </v-col>
 
-            <IncomingType :value.sync="legal.receivables_type" name="receivables_type"></IncomingType>
+            <v-col cols="12" sm="12" md="12">
+                <v-radio-group v-model="legal.receivables_type" row>
+                    <v-radio class="mx-2" :value="incoming_types.first" label="< 0,5млн - 2,5 млн. грн."></v-radio>
+                    <v-radio class="mx-2" :value="incoming_types.second" label="2,5-10 млн. грн."></v-radio>
+                    <v-radio class="mx-2" :value="incoming_types.third" label="10 млн. грн."></v-radio>
+                </v-radio-group>
+            </v-col>
         </v-row>
 
     </div>
@@ -303,12 +335,10 @@
 
 <script>
     import Credits from "./Credits";
-    import IncomingType from "./IncomingType";
 
     export default {
         components: {
             Credits,
-            IncomingType,
         },
         props: {
             legal: {
@@ -322,6 +352,11 @@
         },
         data() {
             return {
+                incoming_types: {
+                    first: 1,
+                    second: 2,
+                    third: 3,
+                },
                 clientPayablesDateMenu: false,
                 clientReceivablesDateMenu: false,
                 clientBalanceDateMenu: false,

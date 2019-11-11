@@ -62,5 +62,15 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repository\CallRepositoryInterface::class,
             \App\Repository\CallRepository::class
         );
+
+        $this->app->bind(
+            \App\Repository\LegalIndividualPersonRepositoryInterface::class,
+            \App\Repository\LegalIndividualPersonRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repository\LegalPersonRepositoryInterface::class,
+            \App\Repository\LegalPersonRepository::class
+        );
     }
 }

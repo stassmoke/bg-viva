@@ -30,11 +30,7 @@ class ClientRepository implements ClientRepositoryInterface
             ->where('user_id', '=', $user->id)
             ->with([
                 'individual.guarantor',
-                'individual.realEstates',
-                'individual.movables',
-                'legalEntry.equipment',
-                'legalEntry.activities',
-                'otherBankCredits',
+                'legalEntry',
             ])
             ->leftJoin('individuals as i','i.id','=','clients.individual_id')
             ->leftJoin('legal_entries as l','l.id','=','clients.legal_entity_id')

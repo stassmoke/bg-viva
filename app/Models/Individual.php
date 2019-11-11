@@ -30,6 +30,11 @@ use Illuminate\Support\Collection;
  */
 class Individual extends Model
 {
+    protected $casts = [
+        'is_married' => 'boolean',
+        'is_have_guarantor' => 'boolean',
+    ];
+
     public const CREATED_AT = null;
     public const UPDATED_AT = null;
 

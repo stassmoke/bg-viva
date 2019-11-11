@@ -30,6 +30,8 @@ use Illuminate\Support\Collection;
  * @property int receivables_type
  * @property Equipment[]|Collection equipment
  * @property LegalEntryActivity[]|Collection activities
+ * @property LegalIndividualPerson[]|Collection individualPersons
+ * @property LegalPerson[]|Collection persons
  */
 class LegalEntry extends Model
 {
@@ -50,5 +52,21 @@ class LegalEntry extends Model
     public function activities(): HasMany
     {
         return $this->hasMany(LegalEntryActivity::class,'legal_entity_id','id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function individualPersons(): HasMany
+    {
+        return $this->hasMany(LegalIndividualPerson::class,'legal_entity_id','id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function persons(): HasMany
+    {
+        return $this->hasMany(LegalPerson::class,'legal_entity_id','id');
     }
 }

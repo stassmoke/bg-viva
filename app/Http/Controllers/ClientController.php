@@ -10,6 +10,8 @@ use App\Repository\GuarantorRepositoryInterface;
 use App\Repository\IndividualRepositoryInterface;
 use App\Repository\LegalEntryActivityRepositoryInterface;
 use App\Repository\LegalEntryRepositoryInterface;
+use App\Repository\LegalIndividualPersonRepositoryInterface;
+use App\Repository\LegalPersonRepositoryInterface;
 use App\Repository\MovablesRepositoryInterface;
 use App\Repository\OtherBankCreditRepositoryInterface;
 use App\Repository\RealEstateRepositoryInterface;
@@ -67,6 +69,16 @@ class ClientController
     private $legalEntryActivityRepository;
 
     /**
+     * @var LegalIndividualPersonRepositoryInterface
+     */
+    private $legalIndividualPersonRepository;
+
+    /**
+     * @var LegalPersonRepositoryInterface
+     */
+    private $legalPersonRepository;
+
+    /**
      * ClientController constructor.
      * @param ClientRepositoryInterface $clientRepository
      * @param GuarantorRepositoryInterface $guarantorRepository
@@ -77,6 +89,8 @@ class ClientController
      * @param RealEstateRepositoryInterface $realEstateRepository
      * @param EquipmentRepositoryInterface $equipmentRepository
      * @param LegalEntryActivityRepositoryInterface $legalEntryActivityRepository
+     * @param LegalIndividualPersonRepositoryInterface $legalIndividualPersonRepository
+     * @param LegalPersonRepositoryInterface $legalPersonRepository
      */
     public function __construct(
         ClientRepositoryInterface $clientRepository,
@@ -87,7 +101,9 @@ class ClientController
         OtherBankCreditRepositoryInterface $otherBankCreditRepository,
         RealEstateRepositoryInterface $realEstateRepository,
         EquipmentRepositoryInterface $equipmentRepository,
-        LegalEntryActivityRepositoryInterface $legalEntryActivityRepository
+        LegalEntryActivityRepositoryInterface $legalEntryActivityRepository,
+        LegalIndividualPersonRepositoryInterface $legalIndividualPersonRepository,
+        LegalPersonRepositoryInterface $legalPersonRepository
     )
     {
         $this->clientRepository = $clientRepository;
@@ -99,6 +115,8 @@ class ClientController
         $this->realEstateRepository = $realEstateRepository;
         $this->equipmentRepository = $equipmentRepository;
         $this->legalEntryActivityRepository = $legalEntryActivityRepository;
+        $this->legalIndividualPersonRepository = $legalIndividualPersonRepository;
+        $this->legalPersonRepository = $legalPersonRepository;
     }
 
     /**
@@ -157,6 +175,8 @@ class ClientController
             'individual.movables',
             'legalEntry.equipment',
             'legalEntry.activities',
+            'legalEntry.individualPersons',
+            'legalEntry.persons',
             'otherBankCredits',
         ]);
 
@@ -284,6 +304,26 @@ class ClientController
                 $this->legalEntryActivityRepository->create([
                     'legal_entity_id' => $legalEntry->id,
                     'description' => $activitiesDatum['description'],
+                ]);
+            }
+
+
+            $legalIndividualPersonsData = (array) Arr::get($legalEntryFromData,'individual_persons', []);
+
+            foreach ($legalIndividualPersonsData as $legalIndividualPersonsDatum) {
+                $this->legalIndividualPersonRepository->create([
+                    'legal_entity_id' => $legalEntry->id,
+                    'description' => $legalIndividualPersonsDatum['description'],
+                ]);
+            }
+
+            $legalPersonsData = (array) Arr::get($legalEntryFromData,'persons', []);
+
+
+            foreach ($legalPersonsData as $legalPersonsDatum) {
+                $this->legalPersonRepository->create([
+                    'legal_entity_id' => $legalEntry->id,
+                    'description' => $legalPersonsDatum['description'],
                 ]);
             }
         }
@@ -522,6 +562,56 @@ class ClientController
             }
 
             $this->legalEntryActivityRepository->removeWhereNotIdByLegalEntry($legalEntryActivityIds, $legalEntry);
+
+            $legalIndividualPersonsData = (array) Arr::get($legalEntryFromData,'individual_persons', []);
+
+            $legalIndividualPersons = $legalEntry->individualPersons->keyBy('id');
+
+            $legalIndividualPersonsIds = [];
+
+            foreach ($legalIndividualPersonsData as $legalIndividualPersonsDatum) {
+                $id = Arr::get($legalIndividualPersonsDatum, 'id');
+
+                if ($legalIndividualPersons->has($id)) {
+                    $legalIndividualPerson = $this->legalIndividualPersonRepository->update([
+                        'description' => $legalIndividualPersonsDatum['description'],
+                    ], $legalIndividualPersons->get($id));
+                } else {
+                    $legalIndividualPerson = $this->legalIndividualPersonRepository->create([
+                        'legal_entity_id' => $legalEntry->id,
+                        'description' => $legalIndividualPersonsDatum['description'],
+                    ]);
+                }
+
+                $legalIndividualPersonsIds[] = $legalIndividualPerson->id;
+            }
+
+            $this->legalIndividualPersonRepository->removeWhereNotIdByLegalEntry($legalIndividualPersonsIds, $legalEntry);
+
+            $legalPersonsData = (array) Arr::get($legalEntryFromData,'persons', []);
+
+            $legalPersons = $legalEntry->persons->keyBy('id');
+
+            $legalPersonsIds = [];
+
+            foreach ($legalPersonsData as $legalPersonsDatum) {
+                $id = Arr::get($legalPersonsDatum, 'id');
+
+                if ($legalPersons->has($id)) {
+                    $legalPerson = $this->legalPersonRepository->update([
+                        'description' => $legalPersonsDatum['description'],
+                    ], $legalPersons->get($id));
+                } else {
+                    $legalPerson = $this->legalPersonRepository->create([
+                        'legal_entity_id' => $legalEntry->id,
+                        'description' => $legalPersonsDatum['description'],
+                    ]);
+                }
+
+                $legalPersonsIds[] = $legalPerson->id;
+            }
+
+            $this->legalPersonRepository->removeWhereNotIdByLegalEntry($legalPersonsIds, $legalEntry);
         }
 
         $client = $this->clientRepository->update($clientData, $client);
