@@ -3,11 +3,22 @@
     <v-container>
       <v-row class="justify-space-between align-center">
         <v-col cols="12" sm="8" md="8">
-          <v-btn depressed color="primary" v-on:click="$router.push('/call/new')">Дзвінок новому клієнту</v-btn>
-          <v-btn depressed color="primary" v-on:click="$router.push('/call/')">Дзвінок Клієнту Існуючому</v-btn>
+          <v-btn
+            v-if="isCurrentRoute('calls')"
+            depressed
+            color="primary"
+            @click="$router.push({name: 'calls.new'})"
+          >Дзвінок новому клієнту</v-btn>
+          <v-btn
+            v-if="!isCurrentRoute('calls')"
+            depressed
+            color="primary"
+            @click="$router.push({name: 'calls'})"
+          >Дзвінок Клієнту Існуючому</v-btn>
         </v-col>
         <v-col cols="12" sm="3" md="3">
           <v-text-field
+            @input="changeSearch()"
             v-model="searchTableCall"
             append-icon="search"
             label="Введіть код або назву клієнта"
@@ -20,21 +31,34 @@
       <v-card>
         <router-view></router-view>
       </v-card>
-
     </v-container>
   </div>
 </template>
 
 <script>
+import { mapMutations, mapActions } from "vuex";
+
 
 export default {
+  data() {
+    return {
+      searchTableCall: ""
+    };
+  },
+  methods: {
+    ...mapActions(["getCalls"]),
+    ...mapMutations(["updateCallSearch"]),
+    changeSearch() {
+      this.updateClientSearch(this.searchTableClient);
+      this.getClients();
 
-    data() {
-        return {
-            newCall: true,
-            searchTableCall: '',
-        }
+      if (!this.isCurrentRoute("clients")) {
+        this.$router.push({ name: "clients" });
+      }
+    },
+    isCurrentRoute(route) {
+      return this.$router.history.current.name === route;
     }
+  }
 };
-
 </script>

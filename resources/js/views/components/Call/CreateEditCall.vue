@@ -3,10 +3,10 @@
     <v-container>
       <v-row class="d-flex justify-space-between align-center">
         <v-col cols="12" sm="7" md="7">
-          <v-radio-group v-model="personChoice" row>
-            <v-radio label="Юридична особа" value="legalEntity"></v-radio>
-            <v-radio label="Фізична особа підприємець" value="IndividualEntrepreneur"></v-radio>
-            <v-radio label="Фізична особа" value="individual"></v-radio>
+          <v-radio-group v-model.number="personChoice" row>
+            <v-radio label="Юридична особа" :value="legalEntity"></v-radio>
+            <v-radio label="Фізична особа підприємець" :value="IndividualEntrepreneur"></v-radio>
+            <v-radio label="Фізична особа" :value="individual"></v-radio>
           </v-radio-group>
         </v-col>
         <v-col cols="12" sm="3" md="3">
@@ -37,10 +37,12 @@
 import LegalEntity from '../Call/OwnershipCall/LegalEntity';
 import IndividualEntrepreneur from '../Call/OwnershipCall/IndividualEntrepreneur';
 import IndividualClient from '../Call/OwnershipCall/IndividualClient';
+
 import { mapActions } from 'vuex';
 
 
 export default {
+  name: "CreateEditCall",
   components: {
     LegalEntity,
     IndividualClient,
@@ -51,6 +53,10 @@ export default {
       personChoice: 'legalEntity',
 
       branchNumber: null,
+
+      call: {
+        
+      },
 
       clientLegal: {
         name: null,

@@ -24,7 +24,7 @@ class CreateLegalEntriesTable extends Migration
             $table->string('landline_phone',255)->nullable();
             $table->mediumText('activity')->nullable();
             $table->integer('net_profit_type')->unsigned()->default(\App\Enums\IncomingEnum::INCOMING_FIRST_TYPE);
-            $table->decimal('сarrying_amount',18,2)->nullable();
+            $table->decimal('carrying_amount',18,2)->nullable();
             $table->date('carrying_date')->nullable();
             $table->integer('carrying_type')->unsigned()->default(\App\Enums\IncomingEnum::INCOMING_FIRST_TYPE);
             $table->decimal('payables',18,2)->unsigned()->nullable();

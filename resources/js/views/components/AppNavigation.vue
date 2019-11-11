@@ -32,7 +32,13 @@ export default {
       {
         title: "Зустріч",
         url: "meetings",
+      },
+      {
+        title: "Дебіторська заборгованість",
+        url: "receivables",
       }
+
+      
     ]
   }),
   computed: {
