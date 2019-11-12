@@ -1,9 +1,9 @@
 <template>
-  <v-row class="d-flex justify-center align-center">
+  <v-row class="d-flex justify-center align-center sing-up__centered">
     <v-col cols="12" sm="8" md="4">
       <v-card class="elevation-12">
         <v-toolbar color="primary" dark flat>
-          <v-toolbar-title>Регистрация</v-toolbar-title>
+          <v-toolbar-title>Реєстрація</v-toolbar-title>
           <div class="flex-grow-1"></div>
         </v-toolbar>
         <v-card-text>
@@ -58,7 +58,7 @@
         </v-card-text>
         <v-card-actions>
           <div class="flex-grow-1"></div>
-          <v-btn color="primary" @click.prevent="register" dark>Зарегистрировать</v-btn>
+          <v-btn color="primary" @click.prevent="register" dark>Зареєструвати</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>

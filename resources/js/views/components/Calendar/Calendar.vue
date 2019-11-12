@@ -79,7 +79,7 @@
                   <span v-html="selectedEvent.details"></span>
                 </v-card-text>
                 <v-card-actions>
-                  <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
+                  <v-btn text color="secondary" @click="selectedOpen = false">Закрити</v-btn>
                 </v-card-actions>
               </v-card>
             </v-menu>
@@ -93,8 +93,8 @@
 <script>
 export default {
   data: () => ({
-    today: "2019-01-01",
-    focus: "2019-01-01",
+    today: null,
+    focus: null,
     type: "month",
     typeToLabel: {
       month: "Місяць",

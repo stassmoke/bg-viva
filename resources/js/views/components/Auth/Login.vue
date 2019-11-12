@@ -1,15 +1,15 @@
 <template>
-    <v-row align="center" justify="center">
+    <v-row class="d-flex justify-center align-center sing-up__centered">
         <v-col cols="12" sm="8" md="4">
             <v-card class="elevation-12">
-                <v-toolbar color="indigo" dark flat>
-                    <v-toolbar-title>Войти</v-toolbar-title>
+                <v-toolbar color="primary" dark flat>
+                    <v-toolbar-title>Вхід</v-toolbar-title>
                     <div class="flex-grow-1"></div>
                 </v-toolbar>
                 <v-card-text>
                     <v-form>
                         <v-text-field
-                            label="Ваша почта"
+                            label="Ваша пошта"
                             name="email"
                             type="email"
                             v-model="email"
@@ -28,7 +28,7 @@
                 </v-card-text>
                 <v-card-actions>
                     <div class="flex-grow-1"></div>
-                    <v-btn color="indigo" @click.prevent="login" dark>Войти</v-btn>
+                    <v-btn color="primary" @click.prevent="login" >Увійти</v-btn>
                 </v-card-actions>
             </v-card>
         </v-col>
