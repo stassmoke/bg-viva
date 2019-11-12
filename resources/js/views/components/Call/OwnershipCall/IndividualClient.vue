@@ -41,7 +41,7 @@
         </v-menu>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-textarea class="input-centered" v-model="individualClient.commet" name="input-7-1" label="Коментар" auto-grow></v-textarea>
+        <v-textarea class="input-centered" v-model="individualClient.commet" name="input-7-1" label="Коментар" auto-grow filled></v-textarea>
       </v-col>
     </v-row>
 

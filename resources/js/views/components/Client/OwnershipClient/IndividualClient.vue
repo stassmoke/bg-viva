@@ -1,5 +1,6 @@
 <template>
     <div>
+        
         <v-row class="justify-center">
             <v-col cols="12" sm="12" md="12">
                 <v-text-field class="input-centered" v-model="individual.fio" label="ФІО"></v-text-field>
@@ -40,14 +41,14 @@
             </v-col>
         </v-row>
 
-        <v-row>
+        <v-row class="flex-column">
             <v-col cols="12" sm="12" md="12" class="d-flex align-center">
                 <h3 class="font-weight-medium">Рухоме майно у власності</h3>
                 <v-btn @click="$emit('addMovables')" class="mx-2" fab small dark color="primary">
                     <v-icon dark>mdi-plus</v-icon>
                 </v-btn>
             </v-col>
-            <v-col cols="12" sm="4" md="4" v-for="(movable,index) in individual.movables" :key="movable.id">
+            <v-col cols="12" sm="4" md="4" class="d-flex align-center" v-for="(movable,index) in individual.movables" :key="movable.id">
                 <v-text-field
                     v-model="movable.description"
                     label="Рухоме майно у власності"
@@ -58,14 +59,14 @@
             </v-col>
         </v-row>
 
-        <v-row>
+        <v-row class="flex-column">
             <v-col cols="12" sm="12" md="12" class="d-flex align-center">
                 <h3 class="font-weight-medium">Нерухоме майно</h3>
                 <v-btn @click="$emit('addRealEstate')" class="mx-2" fab small dark color="primary">
                     <v-icon dark>mdi-plus</v-icon>
                 </v-btn>
             </v-col>
-            <v-col v-for="(realEstate,index) in individual.real_estates" cols="12" sm="4" md="4" :key="realEstate.id">
+            <v-col v-for="(realEstate,index) in individual.real_estates" class="d-flex align-center" cols="12" sm="4" md="4" :key="realEstate.id">
                 <v-text-field v-model="realEstate.description" label="Нерухоме майно"></v-text-field>
                 <v-btn @click="$emit('removeRealEstate',index)" class="mx-2" fab small dark color="primary">
                     <v-icon dark>mdi-minus</v-icon>
@@ -110,14 +111,14 @@
             </v-col>
         </v-row>
 
-        <v-row v-if="individual.is_have_guarantor">
-            <v-col cols="12" sm="12" md="12">
+        <v-row v-if="individual.is_have_guarantor" class="flex-column">
+            <v-col cols="4" sm="4" md="4">
                 <v-text-field label="ФІО" v-model="individual.guarantor.fio"></v-text-field>
             </v-col>
-            <v-col cols="12" sm="12" md="12">
+            <v-col cols="4" sm="4" md="4">
                 <v-text-field label="ІПН" v-model="individual.guarantor.ipn"></v-text-field>
             </v-col>
-            <v-col cols="12" sm="12" md="12">
+            <v-col cols="4" sm="4" md="4">
                 <v-text-field label="Адреса проживання" v-model="individual.guarantor.registration_address"></v-text-field>
             </v-col>
         </v-row>

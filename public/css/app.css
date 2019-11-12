@@ -10,6 +10,20 @@
 .v-navigation-drawer .v-list-item__content {
   padding: 0 !important;
 }
+.v-navigation-drawer .theme--light.v-list-item:hover:before {
+  opacity: 0.5;
+}
+.v-navigation-drawer .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
+  color: rgba(7, 64, 216, 0.46) !important;
+}
+
+.v-navigation-drawer--is-mouseover .v-icon.v-icon {
+  margin: 0 10px 0 0;
+}
+
+.v-navigation-drawer--mini-variant .v-icon.v-icon {
+  margin: 0 35px 0 0;
+}
 
 .v-input--selection-controls {
   margin-top: 0 !important;
@@ -43,4 +57,8 @@ input[type=number]::-webkit-outer-spin-button {
 .datepicker-centered .v-input {
   max-width: 33%;
   margin: 0 auto;
+}
+
+.v-data-table tr {
+  cursor: pointer;
 }

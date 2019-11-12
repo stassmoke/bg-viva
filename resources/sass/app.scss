@@ -33,3 +33,7 @@ input[type=number]::-webkit-outer-spin-button {
     max-width: 33%;
     margin: 0 auto;
 }
+
+.v-data-table tr{
+    cursor: pointer;
+}

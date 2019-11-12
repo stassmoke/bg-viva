@@ -13,6 +13,9 @@ import TableMeeting from './views/components/Meeting/TableMeeting'
 import Receivables from './views/components/Receivables/Receivables'
 import TableRecivables from './views/components/Receivables/TableRecivables'
 
+import Calendar from './views/components/Calendar/Calendar'
+
+
 import Login from './views/components/Auth/Login'
 import Registration from './views/components/Auth/Registration'
 
@@ -126,6 +129,14 @@ export default [
                 },
             },
         ]
+    },
+    {
+        path: '/calendar',
+        name: 'calendar',
+        component: Calendar,
+        meta: {
+            auth: true,
+        },
     },
     {
         path: '/login',

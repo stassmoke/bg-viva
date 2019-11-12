@@ -27,5 +27,6 @@
             AppFooter,
             AppNavigation
         },
+
     };
 </script>

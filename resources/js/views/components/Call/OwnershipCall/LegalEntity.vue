@@ -53,7 +53,7 @@
         </v-menu>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-textarea name="input-7-1"  v-model="clientLegal.comment" class="input-centered" label="Коментар" auto-grow></v-textarea>
+        <v-textarea name="input-7-1"  v-model="clientLegal.comment" class="input-centered" label="Коментар" auto-grow filled></v-textarea>
       </v-col>
     </v-row>
     

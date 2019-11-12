@@ -11,4 +11,19 @@
     .v-list-item__content {
         padding: 0 !important;
     }
+
+    .theme--light.v-list-item:hover:before {
+        opacity: 0.5;
+    }
+
+    .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
+        color: rgba(7, 64, 216, 0.46)!important;
+    }
+    
+}
+.v-navigation-drawer--is-mouseover .v-icon.v-icon {
+    margin: 0 10px 0 0;
+}
+.v-navigation-drawer--mini-variant .v-icon.v-icon {
+    margin: 0 35px 0 0;
 }

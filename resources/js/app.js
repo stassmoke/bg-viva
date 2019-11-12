@@ -4,6 +4,8 @@ import vuetify from './plugins/vuetify';
 import store from './store.js';
 import axios from 'axios';
 
+// import uk from 'vuetify/src/locale/uk'
+
 Vue.use(VueRouter);
 
 const token = localStorage.getItem('token');
