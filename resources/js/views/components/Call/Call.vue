@@ -49,11 +49,11 @@ export default {
     ...mapActions(["getCalls"]),
     ...mapMutations(["updateCallSearch"]),
     changeSearch() {
-      this.updateClientSearch(this.searchTableClient);
-      this.getClients();
+      this.updateCallSearch(this.searchTableCall);
+      this.getCalls();
 
-      if (!this.isCurrentRoute("clients")) {
-        this.$router.push({ name: "clients" });
+      if (!this.isCurrentRoute("calls")) {
+        this.$router.push({ name: "calls" });
       }
     },
     isCurrentRoute(route) {

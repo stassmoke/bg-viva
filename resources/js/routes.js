@@ -61,7 +61,6 @@ export default [
             auth: true,
         },
         children: [
-
             {
                 path: '/',
                 name: 'calls',

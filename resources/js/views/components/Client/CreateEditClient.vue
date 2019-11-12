@@ -8,7 +8,7 @@
             <v-radio label="Фізична особа підприємець" :value="individualEntrepreneurType"></v-radio>
             <v-radio label="Фізична особа" :value="individualType"></v-radio>
           </v-radio-group>
-        </v-col>
+        </v-col> 
         <v-col cols="12" sm="4" md="3">
           <v-text-field
             v-model="client.branch_code"

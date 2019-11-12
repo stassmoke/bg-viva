@@ -3,16 +3,16 @@
 
     <v-row class="justify-center">
       <v-col cols="12" sm="12" md="12">
-        <v-text-field class="input-centered" v-model="individualClient.name" label="ФІО"></v-text-field>
+        <v-text-field class="input-centered" v-model="individual.fio" label="ФІО"></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-text-field class="input-centered" v-model="individualClient.Ipn" label="ІПН"></v-text-field>
+        <v-text-field class="input-centered" v-model="individual.ipn" label="ІПН"></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-text-field class="input-centered" v-model="individualClient.mobileNumber" type="number" label="Мобільний номер телефону"></v-text-field>
+        <v-text-field class="input-centered" v-model="individual.contact_phone" type="number" label="Мобільний номер телефону"></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-text-field class="input-centered" v-model="individualClient.alternateNumber" type="number" label="Альтернативний номер телефону(Домашній /Робочий)"></v-text-field>
+        <v-text-field class="input-centered" v-model="individual.alternate_number" type="number" label="Альтернативний номер телефону(Домашній /Робочий)"></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12" class="datepicker-centered">
         <v-menu
@@ -41,7 +41,7 @@
         </v-menu>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-textarea class="input-centered" v-model="individualClient.commet" name="input-7-1" label="Коментар" auto-grow filled></v-textarea>
+        <v-textarea class="input-centered" v-model="individual.comment" name="input-7-1" label="Коментар" auto-grow filled></v-textarea>
       </v-col>
     </v-row>
 
@@ -51,7 +51,7 @@
 <script>
 export default {
     props: {
-      individualClient: {
+      individual: {
       type: Object,
       required: true
     }

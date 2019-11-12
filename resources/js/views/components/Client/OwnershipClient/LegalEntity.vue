@@ -9,6 +9,9 @@
                     class="input-centered"
                     v-model="legal.edrpou_code"
                     label="Код ЄДРПОУ"
+                    maxlength="6"
+                    type="number"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                 ></v-text-field>
             </v-col>
             <v-col cols="12" sm="12" md="12">

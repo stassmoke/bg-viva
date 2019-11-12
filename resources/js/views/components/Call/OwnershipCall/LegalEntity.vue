@@ -2,12 +2,12 @@
   <div>
     <v-row class="justify-center">
       <v-col cols="12" sm="12" md="12">
-        <v-text-field class="input-centered" v-model="clientLegal.name" label="Назва Організації"></v-text-field>
+        <v-text-field class="input-centered" v-model="legal.name" label="Назва Організації"></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12">
         <v-text-field
           type="number"
-          v-model="clientLegal.legalCode"
+          v-model="legal.edrpou_code"
           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
           maxlength="6"
           label="Код ЄДРПОУ"
@@ -15,16 +15,16 @@
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-text-field class="input-centered" v-model="clientLegal.contactPerson" label="Контактна Особа"></v-text-field>
+        <v-text-field class="input-centered" v-model="legal.contact_person" label="Контактна Особа"></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-text-field class="input-centered" v-model="clientLegal.position" label="Посада"></v-text-field>
+        <v-text-field class="input-centered" v-model="legal.position" label="Посада"></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-text-field class="input-centered" v-model="clientLegal.phoneNumber" type="number" label="Номер Телефону"></v-text-field>
+        <v-text-field class="input-centered" v-mask="mask" v-model="legal.phone" type="number" label="Номер Телефону"></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-text-field class="input-centered"  v-model="clientLegal.secondPhone" type="number" label="Додатковий телефон"></v-text-field>
+        <v-text-field class="input-centered"  v-model="legal.landline_phone" type="number" label="Додатковий телефон"></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12" class="datepicker-centered">
         <v-menu
@@ -53,7 +53,7 @@
         </v-menu>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-textarea name="input-7-1"  v-model="clientLegal.comment" class="input-centered" label="Коментар" auto-grow filled></v-textarea>
+        <v-textarea name="input-7-1"  v-model="legal.comment" class="input-centered" label="Коментар" auto-grow filled></v-textarea>
       </v-col>
     </v-row>
     
@@ -63,13 +63,14 @@
 <script>
 export default {
   props: {
-    clientLegal: {
+    legal: {
       type: Object,
       required: true
     }
   },
   data() {
     return {
+      mask: '###-###-##-##',
       callDate: new Date().toISOString().substr(0, 10),
       callDateMenu: false
     };
