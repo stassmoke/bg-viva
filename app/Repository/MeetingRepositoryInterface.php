@@ -4,17 +4,17 @@ namespace App\Repository;
 
 use App\DTO\FilterDTO;
 use App\DTO\SortByDTO;
-use App\Models\Call;
+use App\Models\Meeting;
 use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-interface CallRepositoryInterface
+interface MeetingRepositoryInterface
 {
     /**
      * @param int $id
-     * @return Call|null
+     * @return Meeting|null
      */
-    public function find(int $id): ?Call;
+    public function find(int $id): ?Meeting;
 
     /**
      * @param User $user
@@ -26,14 +26,14 @@ interface CallRepositoryInterface
 
     /**
      * @param array $data
-     * @return Call
+     * @return Meeting
      */
-    public function create(array $data): Call;
+    public function create(array $data): Meeting;
 
     /**
      * @param array $data
-     * @param Call $call
-     * @return Call
+     * @param Meeting $meeting
+     * @return Meeting
      */
-    public function update(array $data, Call $call): Call;
+    public function update(array $data, Meeting $meeting): Meeting;
 }

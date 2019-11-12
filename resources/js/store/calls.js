@@ -3,10 +3,13 @@ import axios from 'axios';
 export default {
     state: {
         search: null,
-
-        calls: [
-            
-        ],
+        isLoaded: false,
+        perPage: 20,
+        page: 1,
+        total: 0,
+        sortBy: 'id',
+        sortDirection: 'DESC',
+        calls: [],
     },
     mutations: {
         addCall(state, call) {
@@ -21,7 +24,7 @@ export default {
 
             state.calls[indexOfCall] = call;
         },
-        updateCallSearch(state, search) {
+        updateCallsSearch(state, search) {
           state.search = search;
         },
         setCalls(state, pagination) {
@@ -83,7 +86,7 @@ export default {
                 const params = {
                     page: getters.callsPage,
                     perPage: getters.callsPerPage,
-                    term: getters.callSearch,
+                    term: getters.callsSearch,
                     orderBy: getters.callsSortBy,
                     sortDirection: getters.callsSortDirection,
                 };
@@ -99,7 +102,7 @@ export default {
     },
     getters: {
         calls: state => state.calls,
-        callSearch: state => state.search,
+        callsSearch: state => state.search,
         isLoadedCalls: state => state.isLoaded,
         callsPerPage: state => state.perPage,
         callsPage: state => state.page,

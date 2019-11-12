@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Call
+ * Class Meeting
  * @package App\Models
  * @property int id
  * @property int type
+ * @property int user_id
  * @property string name
  * @property string branch_code
  * @property string edrpou_code
@@ -18,10 +19,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string phone
  * @property string alternate_phone
  * @property string date_at
+ * @property string time_at
  * @property string comment
- * @property int user_id
+ * @property int result
  */
-class Call extends Model
+class Meeting extends Model
 {
 
 }

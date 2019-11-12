@@ -72,5 +72,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repository\LegalPersonRepositoryInterface::class,
             \App\Repository\LegalPersonRepository::class
         );
+
+        $this->app->bind(
+            \App\Repository\MeetingRepositoryInterface::class,
+            \App\Repository\MeetingRepository::class
+        );
     }
 }
