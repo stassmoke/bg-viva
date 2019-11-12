@@ -4,27 +4,27 @@ namespace App\Http\Controllers;
 
 use App\DTO\FilterDTO;
 use App\DTO\SortByDTO;
-use App\Repository\CallRepositoryInterface;
+use App\Repository\MeetingRepositoryInterface;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
 
-class CallController
+class MeetingController
 {
     /**
-     * @var CallRepositoryInterface
+     * @var MeetingRepositoryInterface
      */
-    private $callRepository;
+    private $meetingRepository;
 
     /**
-     * CallController constructor.
-     * @param CallRepositoryInterface $callRepository
+     * MeetingController constructor.
+     * @param MeetingRepositoryInterface $meetingRepository
      */
-    public function __construct(CallRepositoryInterface $callRepository)
+    public function __construct(MeetingRepositoryInterface $meetingRepository)
     {
-        $this->callRepository = $callRepository;
+        $this->meetingRepository = $meetingRepository;
     }
 
     /**
@@ -48,7 +48,7 @@ class CallController
 
         $sortByDTO = new SortByDTO($orderBy, $sortDirection);
 
-        $calls = $this->callRepository->findByUserAndPaginate($user, $filterDTO, $sortByDTO);
+        $calls = $this->meetingRepository->findByUserAndPaginate($user, $filterDTO, $sortByDTO);
 
         return new JsonResponse($calls->toArray());
     }
@@ -60,9 +60,9 @@ class CallController
      */
     public function find(int $id, Request $request): Response
     {
-        $call = $this->callRepository->find($id);
+        $meeting = $this->meetingRepository->find($id);
 
-        if ($call === null) {
+        if ($meeting === null) {
             return new JsonResponse([
                 'call' => null,
             ], Response::HTTP_NOT_FOUND);
@@ -71,14 +71,14 @@ class CallController
         /** @var User $user */
         $user = $request->user();
 
-        if ($call->user_id !== $user->id) {
+        if ($meeting->user_id !== $user->id) {
             return new JsonResponse([
                 'call' => null,
             ], Response::HTTP_FORBIDDEN);
         }
 
         return new JsonResponse([
-            'call' => $call,
+            'meeting' => $meeting,
         ]);
     }
 
@@ -88,27 +88,29 @@ class CallController
      */
     public function store(Request $request): Response
     {
-        $callFormData = $request->request->get('call');
+        $meetingFormData = $request->request->get('meeting');
 
         /** @var User $user */
         $user = $request->user();
 
-        $call = $this->callRepository->create([
-            'type' => Arr::get($callFormData,'type'),
-            'branch_code' => Arr::get($callFormData,'branch_code'),
-            'name' => Arr::get($callFormData,'name'),
-            'edrpou_code' => Arr::get($callFormData,'edrpou_code'),
-            'ipn' => Arr::get($callFormData,'ipn'),
-            'contact_name' => Arr::get($callFormData,'contact_name'),
-            'contact_position' => Arr::get($callFormData,'contact_position'),
-            'phone' => Arr::get($callFormData,'phone'),
-            'alternate_phone' => Arr::get($callFormData,'alternate_phone'),
-            'date_at' => Arr::get($callFormData,'date_at'),
-            'comment' => Arr::get($callFormData,'comment'),
+        $meeting = $this->meetingRepository->create([
+            'type' => Arr::get($meetingFormData,'type'),
+            'name' => Arr::get($meetingFormData,'name'),
+            'branch_code' => Arr::get($meetingFormData,'branch_code'),
+            'edrpou_code' => Arr::get($meetingFormData,'edrpou_code'),
+            'ipn' => Arr::get($meetingFormData,'ipn'),
+            'contact_name' => Arr::get($meetingFormData,'contact_name'),
+            'contact_position' => Arr::get($meetingFormData,'contact_position'),
+            'phone' => Arr::get($meetingFormData,'phone'),
+            'alternate_phone' => Arr::get($meetingFormData,'alternate_phone'),
+            'date_at' => Arr::get($meetingFormData,'date_at'),
+            'time_at' => Arr::get($meetingFormData,'time_at'),
+            'comment' => Arr::get($meetingFormData,'comment'),
+            'result' => Arr::get($meetingFormData,'result'),
             'user_id' => $user->id,
         ]);
 
-        return new JsonResponse($call);
+        return new JsonResponse($meeting);
     }
 
     /**
@@ -118,9 +120,9 @@ class CallController
      */
     public function update(int $id, Request $request): Response
     {
-        $call = $this->callRepository->find($id);
+        $meeting = $this->meetingRepository->find($id);
 
-        if ($call === null) {
+        if ($meeting === null) {
             return new JsonResponse([
                 'status' => false,
             ], Response::HTTP_NOT_FOUND);
@@ -129,30 +131,32 @@ class CallController
         /** @var User $user */
         $user = $request->user();
 
-        if ($call->user_id !== $user->id) {
+        if ($meeting->user_id !== $user->id) {
             return new JsonResponse([
                 'status' => false,
             ], Response::HTTP_FORBIDDEN);
         }
 
-        $callFormData = $request->request->get('call');
+        $meetingFormData = $request->request->get('call');
 
-        $this->callRepository->update([
-            'type' => Arr::get($callFormData,'type'),
-            'branch_code' => Arr::get($callFormData,'branch_code'),
-            'name' => Arr::get($callFormData,'name'),
-            'edrpou_code' => Arr::get($callFormData,'edrpou_code'),
-            'ipn' => Arr::get($callFormData,'ipn'),
-            'contact_name' => Arr::get($callFormData,'contact_name'),
-            'contact_position' => Arr::get($callFormData,'contact_position'),
-            'phone' => Arr::get($callFormData,'phone'),
-            'alternate_phone' => Arr::get($callFormData,'alternate_phone'),
-            'date_at' => Arr::get($callFormData,'date_at'),
-            'comment' => Arr::get($callFormData,'comment'),
-        ], $call);
+        $this->meetingRepository->update([
+            'type' => Arr::get($meetingFormData,'type'),
+            'name' => Arr::get($meetingFormData,'name'),
+            'branch_code' => Arr::get($meetingFormData,'branch_code'),
+            'edrpou_code' => Arr::get($meetingFormData,'edrpou_code'),
+            'ipn' => Arr::get($meetingFormData,'ipn'),
+            'contact_name' => Arr::get($meetingFormData,'contact_name'),
+            'contact_position' => Arr::get($meetingFormData,'contact_position'),
+            'phone' => Arr::get($meetingFormData,'phone'),
+            'alternate_phone' => Arr::get($meetingFormData,'alternate_phone'),
+            'date_at' => Arr::get($meetingFormData,'date_at'),
+            'time_at' => Arr::get($meetingFormData,'time_at'),
+            'comment' => Arr::get($meetingFormData,'comment'),
+            'result' => Arr::get($meetingFormData,'result'),
+        ], $meeting);
 
 
-        return new JsonResponse($call);
+        return new JsonResponse($meeting);
     }
 
     /**
@@ -163,7 +167,7 @@ class CallController
      */
     public function delete(int $id, Request $request): Response
     {
-        $call = $this->callRepository->find($id);
+        $call = $this->meetingRepository->find($id);
 
         if ($call === null) {
             return new JsonResponse([
