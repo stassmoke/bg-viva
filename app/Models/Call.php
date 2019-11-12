@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  * @property int id
  * @property int type
+ * @property string name
  * @property string branch_code
  * @property string edrpou_code
  * @property string ipn

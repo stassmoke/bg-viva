@@ -40,5 +40,9 @@ Route::group([
     Route::put('clients/{id}','ClientController@update');
     Route::delete('clients/{id}','ClientController@delete');
 
+    Route::get('calls','CallController@getList');
+    Route::post('calls','CallController@store');
     Route::get('calls/{id}','CallController@find');
+    Route::put('calls/{id}','CallController@update');
+    Route::delete('calls/{id}','CallController@delete');
 });

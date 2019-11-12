@@ -3,11 +3,7 @@ import axios from 'axios';
 export default {
     state: {
         search: null,
-
-        meetings: [
-            
-        ],
-
+        meetings: [],
     },
     mutations: {
         addMeeting(state, meeting) {
