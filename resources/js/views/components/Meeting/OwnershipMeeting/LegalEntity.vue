@@ -62,7 +62,7 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker class="input-centered" v-model="callDate" no-title scrollable>
+          <v-date-picker locale="uk" class="input-centered" v-model="callDate" no-title scrollable>
             <v-spacer></v-spacer>
             <v-btn text color="primary" @click="callDateMenu = false">Cancel</v-btn>
             <v-btn text color="primary" @click="$refs.callDateMenu.save(callDate)">OK</v-btn>

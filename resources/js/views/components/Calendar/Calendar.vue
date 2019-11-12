@@ -40,6 +40,7 @@
           </v-sheet>
           <v-sheet height="600">
             <v-calendar
+              locale="uk"
               ref="calendar"
               v-model="focus"
               color="primary"

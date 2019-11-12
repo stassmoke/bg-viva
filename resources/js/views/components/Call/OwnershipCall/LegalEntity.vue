@@ -21,7 +21,7 @@
         <v-text-field class="input-centered" v-model="legal.position" label="Посада"></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12">
-        <v-text-field class="input-centered" v-mask="mask" v-model="legal.phone" type="number" label="Номер Телефону"></v-text-field>
+        <v-text-field class="input-centered"  v-model="legal.phone" type="number" label="Номер Телефону"></v-text-field>
       </v-col>
       <v-col cols="12" sm="12" md="12">
         <v-text-field class="input-centered"  v-model="legal.landline_phone" type="number" label="Додатковий телефон"></v-text-field>
@@ -45,7 +45,7 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker class="input-centered"  v-model="callDate" no-title scrollable>
+          <v-date-picker locale="uk" class="input-centered"  v-model="callDate" no-title scrollable>
             <v-spacer></v-spacer>
             <v-btn text color="primary" @click="callDateMenu = false">Cancel</v-btn>
             <v-btn text color="primary" @click="$refs.callDateMenu.save(callDate)">OK</v-btn>
@@ -70,7 +70,6 @@ export default {
   },
   data() {
     return {
-      mask: '###-###-##-##',
       callDate: new Date().toISOString().substr(0, 10),
       callDateMenu: false
     };

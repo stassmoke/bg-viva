@@ -213,7 +213,7 @@
                             v-on="on"
                         ></v-text-field>
                     </template>
-                    <v-date-picker v-model="legal.carrying_date" no-title scrollable>
+                    <v-date-picker locale="uk" v-model="legal.carrying_date" no-title scrollable>
                         <v-spacer></v-spacer>
                         <v-btn text color="primary" @click="clientBalanceDateMenu = false">Cancel</v-btn>
                         <v-btn
@@ -258,7 +258,7 @@
                             v-on="on"
                         ></v-text-field>
                     </template>
-                    <v-date-picker v-model="legal.payables_date" no-title scrollable>
+                    <v-date-picker locale="uk" v-model="legal.payables_date" no-title scrollable>
                         <v-spacer></v-spacer>
                         <v-btn text color="primary" @click="clientPayablesDateMenu = false">Cancel</v-btn>
                         <v-btn

@@ -38,7 +38,7 @@
                             v-on="on"
                         ></v-text-field>
                     </template>
-                    <v-date-picker v-model="client.contract_date" no-title scrollable>
+                    <v-date-picker locale="uk" v-model="client.contract_date" no-title scrollable>
                         <v-spacer></v-spacer>
                         <v-btn text color="primary" @click="clientContractDateMenu = false">Cancel</v-btn>
                         <v-btn
